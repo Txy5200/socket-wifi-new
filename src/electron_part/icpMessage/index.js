@@ -1,5 +1,5 @@
 const { userLogin, recordList, recordDelete, recordDeleteAll, patientList, resetPassword } = require('../controller/user')
-const { openSerialport, closeSerialport, querySerialport, configSerialport } = require('../controller/serialport')
+const { openSerialport, closeSerialport } = require('../controller/serialport')
 const { playback, stopplay, continuePlay, changePlay } = require('../controller/play')
 const { exportToPDF } = require('../controller/report')
 
@@ -17,12 +17,12 @@ const router = (arg, cb, event) => {
       break
     case 'closeSerialport':
       closeSerialport(arg, cb)
-    case 'querySerialport':
-      querySerialport(arg, cb)
-      break
-    case 'configSerialport':
-      configSerialport(arg, cb)
-      break
+    // case 'querySerialport':
+    //   querySerialport(arg, cb)
+    //   break
+    // case 'configSerialport':
+    //   configSerialport(arg, cb)
+    //   break
     case 'recordList':
       recordList(arg, cb)
       break

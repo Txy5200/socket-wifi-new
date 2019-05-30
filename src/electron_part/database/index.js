@@ -1,5 +1,6 @@
-import { adminDB, patientDB, recordDB, pressDB } from './nedb'
+import { adminDB, patientDB, recordDB, pressDB, wifiPpmDB } from './nedb'
 import { sendDataToServer } from '../controller/websocket'
+import moment from 'moment'
 
 export const initDataBase = () => {
   // 创建默认管理员
@@ -24,9 +25,10 @@ export const upsertUser = ({ name, certificate_no, height, weigth, shoe_size }, 
   patientDB.update({ certificate_no }, { name, certificate_no, height, weigth, shoe_size }, { upsert: true }, callback)
 }
 
-export const insertRecord = ({ certificate_no, shoe_size }, callback) => {
+export const insertRecord = ({ shoe_size }, callback) => {
   let start_time = Date.now()
-  recordDB.insert({ certificate_no, start_time, shoe_size }, callback)
+  let record_time = moment().format('YYYY-MM-DD HH:mm:ss')
+  recordDB.insert({ record_time, start_time, shoe_size }, callback)
 }
 
 export const removeRecords = (ids, callback) => {
@@ -56,6 +58,12 @@ export const insertSerialprotData = ({ press, pressAD, posture }) => {
   }
   // if (pressAD.length) insertData(`insert into press_ad VALUES(NULL, $record_id, $lr, $num_order, $current_time, ${forceValu.join(',')})`, pressAD)
   // if (posture.length) insertData('insert into posture VALUES(NULL, $record_id, $lr, $num_order, $current_time, $acc_x, $acc_y, $acc_z, $angle_x, $angle_y, $angle_z, $mag_x, $mag_y, $mag_z)', posture)
+}
+
+export const insertWifiData = (data) => {
+  wifiPpmDB.insert(data, function(err, newdoc){
+    if(err) console.log('insertWifiData======', err)
+  })
 }
 
 export const findRecords = ({ page = 1, limit = 10, keyword }, callback) => {
@@ -137,9 +145,9 @@ export const findPatients = ({ page = 1, limit = 10, keyword }, callback) => {
 
 export const saveGait = ({ recordId, gaitInfo, copInfo }) => {
   recordDB.update({ _id: recordId }, { $set: { gaitInfo, copInfo } }, () => {
-    recordDB.findOne({ _id: recordId }, (_, doc) => {
-      sendSynStatisticsData(doc)
-    })
+    // recordDB.findOne({ _id: recordId }, (_, doc) => {
+    //   sendSynStatisticsData(doc)
+    // })
   })
 }
 

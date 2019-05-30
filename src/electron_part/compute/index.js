@@ -2,22 +2,22 @@ import { fork } from 'child_process'
 import { variables } from '../global_variables'
 import { timeToByteArray } from '../lib'
 
-let gaitChild = fork(__dirname + '/compute_for_gait.js', { silent: true })
+// let gaitChild = fork(__dirname + '/compute_for_gait.js', { silent: true })
 let glChild = fork(__dirname + '/compute_for_gl.js', { silent: true })
 
 // 处理步态消息
-gaitChild.on('message', msg => {
-  switch (msg.type) {
-    case 'target':
-      variables.gaitInfo = msg.data
-      break
-    case 'firstGaitFlag':
-      variables.cop_position = []
-      break
-    default:
-      break
-  }
-})
+// gaitChild.on('message', msg => {
+//   switch (msg.type) {
+//     case 'target':
+//       variables.gaitInfo = msg.data
+//       break
+//     case 'firstGaitFlag':
+//       variables.cop_position = []
+//       break
+//     default:
+//       break
+//   }
+// })
 
 // 处理绘制消息
 glChild.on('message', msg => {
@@ -75,12 +75,13 @@ export const conputeData = data => {
 // 初始化变量
 export const initializeCompute = () => {
   const { shoe_size } = variables.recordInfo
-  gaitChild.send({ type: 'init', isNewLayout: shoe_size >= 38 })
+  // gaitChild.send({ type: 'init', isNewLayout: shoe_size >= 38 })
   glChild.send({ type: 'init', isNewLayout: shoe_size >= 38 })
   variables.data_position = {
     left: [],
     right: []
   }
+  variables.wifiPpm = {}
   variables.cop_position = []
   variables.cop_draw = {
     x: [],

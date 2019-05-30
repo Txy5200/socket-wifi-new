@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/help" component={HelpScreen} />
           <Route path="/inspection/report" component={Report} />
           <Route path="/login/changePwd" component={ChangePwd} />
-          <Route path="*" component={Login} />
+          <Route path="*" component={Inspection} />
         </Switch>
       </Router>
     )

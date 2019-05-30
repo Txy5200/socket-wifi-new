@@ -12,3 +12,4 @@ export const gaitDB = new Datastore({ filename: `${userDataPath}/gait.db`, autol
 export const pressDB = new Datastore({ filename: `${userDataPath}/press.db`, autoload: true })
 export const pressAdDB = new Datastore({ filename: `${userDataPath}/pressAd.db`, autoload: true })
 export const postureDB = new Datastore({ filename: `${userDataPath}/posture.db`, autoload: true })
+export const wifiPpmDB = new Datastore({ filename: `${userDataPath}/wifiPpm.db`, autoload: true })

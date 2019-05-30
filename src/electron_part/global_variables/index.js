@@ -3,6 +3,7 @@
 let variables = {
   userInfo: {}, // 当前用户信息
   recordInfo: {}, // 当前训练记录信息
+  wifiPpm: {}, // 当前肌力数据
   data_position: {
     left: [],
     right: []

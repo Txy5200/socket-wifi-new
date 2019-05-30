@@ -8,6 +8,7 @@ import ChartPie from './chart_pie'
 import ChartCopLine from './chart_cop_line'
 import ChartCommonLine from './chart_common_line'
 import ChartDynamicPressureScatter from './chart_pressure_scatter'
+import CharLine from './line_chart'
 
 export {
   InputBox,
@@ -19,5 +20,6 @@ export {
   ChartPie,
   ChartCopLine,
   ChartCommonLine,
-  ChartDynamicPressureScatter
+  ChartDynamicPressureScatter,
+  CharLine
 }
