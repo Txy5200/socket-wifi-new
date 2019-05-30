@@ -1,0 +1,195 @@
+.loginPage {
+  width: 100%;
+  height: 100%;
+  background: url('../icons/background.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.login_section {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 1.042vw;
+  width: auto;
+  height: auto;
+  margin-right: 11.667vw;
+  padding: 4.688vw 3vw 1.563vw 3vw;
+}
+
+.section_title {
+  font-family: MicrosoftYaHei;
+  font-size: 1.771vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.141vw;
+  color: #373737;
+}
+
+.login_section .input_div {
+  display: flex;
+  border-bottom: 1px solid #d8d8d8;
+  width: 21.354vw;
+  padding: 0 0.417vw;
+  height: 3.3vw;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+.login_section ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+.login_section .input_div>i {
+  width: 1.458vw;
+  height: 1.771vw;
+}
+
+.login_section .input_div>input {
+  border: none;
+  outline: none;
+  font-size: 1.042vw;
+  letter-spacing: 0.083vw;
+  color: #999999;
+  height: 100%;
+  text-indent: 0.885vw;
+  flex: 1;
+}
+
+.login_section ul li>div.input_div i.user_name {
+  background: url('../icons/user.png') center center no-repeat;
+  background-size: 100%;
+}
+
+.login_section ul li>div.input_div i.password {
+  background: url('../icons/password.png') center center no-repeat;
+  background-size: 100%;
+}
+
+.login_section ul li>div.input_div i.tip_info {
+  background: url('../icons/Tips.png') center center no-repeat;
+  background-size: 100%;
+}
+
+.login_section ul li.tips_li>div.input_div>span {
+  font-size: 1.852vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.148vh;
+  color: #666666;
+  margin-left: 1.481vh;
+}
+
+.forget_psw_li {
+  align-self: flex-end;
+  font-size: 1.042vw;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: 1.042vw;
+  letter-spacing: 0.083vw;
+  color: #0999fd;
+  margin-top: 1.042vw;
+  cursor: pointer;
+}
+
+.btn_li {
+  margin-top: 3.854vw;
+}
+
+.loginPage .input_center {
+  background-color: #ffffff;
+  border-radius: 1.042vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 11.667vw;
+  padding: 4.688vw 3vw 1.563vw 3vw;
+}
+
+.loginPage .input_center .section_title {
+  font-size: 1.771vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.141vw;
+  color: #0999fd;
+}
+
+.loginPage .input_center .input_box {
+  font-size: 1.25vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0px;
+  color: #4c4c4c;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F0EDEA;
+  white-space: nowrap;
+  width: 21.354vw;
+  padding: 0 0.417vw;
+  height: 3.3vw;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+.loginPage .input_center .input_box .input, .loginPage .input_center .input_box input {
+  flex: 1;
+  height: 100%;
+  font-size: 1.25vw;
+}
+
+.loginPage .input_center .input_box img {
+  width: 1.458vw;
+  height: 1.771vw;
+}
+
+.loginPage .input_center .input_box .extra_btn {
+  font-size: 0.833vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 1px;
+  color: #ffffff;
+  padding: 0.469vw 0.521vw;
+  background: #0999fd;
+  border-radius: 0.26vw;
+}
+
+.determine_btn {
+  margin-top: 3.49vw;
+}
+
+.btn_li .loginBtn, .determine_btn .loginBtn {
+  font-family: MicrosoftYaHei;
+  font-size: 1.563vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.125vw;
+  color: #ffffff;
+  padding: 1.3vh 4vw;
+  background-color: #0999fd;
+  border-radius: 1.797vw;
+  border: none;
+  outline: none;
+  margin-left: 1vh;
+  cursor: pointer;
+}
+
+.determine_btn .cancelBtn {
+  font-family: MicrosoftYaHei;
+  font-size: 1.563vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.125vw;
+  color: #ffffff;
+  padding: 1.3vh 4vw;
+  background-color: #0999fd;
+  border-radius: 1.797vw;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

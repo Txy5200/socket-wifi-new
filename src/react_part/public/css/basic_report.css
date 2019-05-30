@@ -1,0 +1,388 @@
+.basic_report_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: -1.5vw;
+}
+
+.basic_report_color {
+  /* width: 5.741vh; */
+  height: 45vh;
+  margin-left: 5.208vw;
+}
+
+.basic_report_color>img {
+  width: 100%;
+  height: 100%;
+}
+
+.basic_report_reply {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4.427vw;
+}
+
+.basic_report_reply>img {
+  cursor: pointer;
+  width: 2.813vw;
+}
+
+.basic_content_right {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  /* margin-left: 5.521vw; */
+}
+
+.basic_content_right>div {
+  background-color: #ffffff;
+  box-shadow: 0vw 0.156vw 0.469vw 0vw rgba(9, 153, 253, 0.2);
+  border-radius: 0.521vw;
+  border: solid 0.052vw #f4f4f4;
+}
+
+.basic_content_right .report_gait_chart {
+  width: 34.583vw;
+  height: 35.926vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.basic_content_div_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.981vh 0 0 0;
+}
+
+.basic_content_div_title>i {
+  width: 2.222vh;
+  height: 2.222vh;
+  background: url(../icons/Notes.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+  margin-right: 1.852vh;
+}
+
+.gait_chart_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.gait_chart_content_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.gait_chart_content_item .pie-react {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.gait_chart_content_item .pie-react>div {
+  width: 100%;
+  height: 100%;
+}
+
+.gait_chart_content_item .pie-react>div>div:first-child {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.gait_chart_content_item .pie-react>div>div>canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.gait_chart_content>.gait_chart_content_item>span {
+  font-size: 1.667vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4d4d4d;
+  margin-top: 1.852vh;
+  margin-bottom: 4.204vh;
+}
+
+.basic_content_div_title>span {
+  font-family: MicrosoftYaHei;
+  font-size: 2.222vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4c4c4c;
+  margin-left: 3.611vh;
+}
+
+.basic_content_right .single_time_chart {
+  width: 17.292vw;
+  height: 35.926vh;
+  margin-left: 0.99vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.single_time_chart_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.basic_content_right .crura_weight_chart {
+  width: 34.583vw;
+  height: 35.926vh;
+  margin-top: 1.146vw;
+}
+
+.basic_content_right .double_time_chart {
+  width: 17.292vw;
+  height: 35.926vh;
+  margin-left: 0.99vw;
+  margin-top: 1.146vw;
+}
+
+.basic_report_reply .dynamic_pressure_content_img {
+  margin-top: 0;
+}
+
+.double_time_chart_content>ul {
+  display: flex;
+  flex-direction: column;
+  padding-left: 3.918vh;
+}
+
+.double_time_chart_content>ul>li {
+  display: flex;
+  align-items: center;
+  margin-top: 3.519vh;
+}
+
+.double_time_chart_content>ul>li>i {
+  width: 1.389vh;
+  height: 0.278vh;
+  background-color: #0999fd;
+  border-radius: 0.092vh;
+  display: block;
+}
+
+.double_time_chart_content>ul>li>span {
+  font-size: 1.667vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4c4c4c;
+  margin-left: 1.759vh;
+  width: 8.333vh;
+}
+
+.double_time_chart_content>ul>li>label {
+  font-size: 1.851vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4c4c4c;
+  margin-left: 2.407vh;
+}
+
+.crura_weight_chart_content {
+  display: flex;
+  align-items: center;
+}
+
+.crura_weight_chart_content>.gait_chart_content_item {
+  display: flex;
+  flex-direction: row;
+}
+
+.crura_weight_chart_content>.gait_chart_content_item:first-child {
+  border-right: 1px solid #e5e5e5;
+  flex-direction: column;
+}
+
+.crura_weight_chart_content>.gait_chart_content_item:last-child>ul {
+  margin-left: 3.611vh;
+  width: 100%;
+  margin-right: 2.278vh;
+}
+
+.crura_weight_chart_content>.gait_chart_content_item:last-child>ul>li {
+  margin-top: 3vh;
+}
+
+.right_foot_weight, .left_foot_weight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3.148vh;
+}
+
+.left_foot_weight {
+  /* margin-left: 7.037vh; */
+}
+
+.right_foot_weight {
+  margin-left: 3.704vh;
+}
+
+.left_foot_weight>div, .right_foot_weight>div {
+  width: 6.574vh;
+  height: 4.815vh;
+  background-size: 100% 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left_foot_weight>div>span, .right_foot_weight>div>span {
+  position: absolute;
+  font-size: 1.296vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #666666;
+}
+
+.left_foot_weight>div>img, .right_foot_weight>div>img {
+  width: 100%;
+  height: 100%;
+}
+
+.crura_weight_chart_bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.363vh;
+}
+
+.crura_weight_chart_bottom>.bottom_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 3.611vh;
+}
+
+.crura_weight_chart_bottom>.bottom_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.press_progress_bar {
+  width: 19.259vh;
+  height: 0.926vh;
+  background-color: #0999fd;
+  border-radius: 0.415vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  margin: 0 1.019vh;
+}
+
+.press_progress_bar>.progress_bar_inner {
+  background: #13ca98;
+  width: 0;
+  height: 0.926vh;
+  border-radius: 0.415vh;
+}
+
+.press_progress_bar>i {
+  width: 1.204vh;
+  height: 1.296vh;
+  background-color: #ffffff;
+  border: solid 0.093vh #bfbfbf;
+  position: absolute;
+  left: 0;
+  display: block;
+  border-radius: 100%;
+}
+
+.foot_imgs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time_proportion {
+  position: absolute;
+  right: 1.889vh;
+  top: 5.463vh;
+  font-size: 1.297vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #0a99fd;
+  display: flex;
+  align-items: center;
+}
+
+.time_proportion>i {
+  width: 0.648vh;
+  height: 0.648vh;
+  background-color: #0999fd;
+  display: block;
+  border-radius: 100%;
+}
+
+.gait_chart_content_item .ant-progress-status-success .ant-progress-bg {
+  background-color: #1890ff;
+}
+
+.gait_chart_content_item  .ant-progress-status-success .ant-progress-text {
+  color: rgba(0,0,0,.45);
+}
+
+.reply_bottom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.reply_bottom >div {
+  flex: 1;
+  margin: 0 0.99vw;
+}
+
+.reply_bottom >span {
+  font-size: 0.938vw;
+  color: #4c4c4c;
+}
+
+.reply_bottom >img {
+  margin-left: 0.938vw;
+  cursor: pointer;
+}
+
+.reply_bottom >div .ant-slider-rail {
+  height: 0.741vh;
+}
+
+.reply_bottom >div .ant-slider-track {
+  height: 0.741vh;
+  background-color: #0999fd;
+}
+
+.reply_bottom >div .ant-slider-handle {
+  background-color: #0999fd;
+  border: 2px solid #0999fd;
+}

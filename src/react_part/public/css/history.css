@@ -1,0 +1,61 @@
+.history_record {
+  display: flex;
+  flex-direction: column;
+}
+
+.history_btn_content {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2.778vh;
+  align-items: center;
+}
+
+.content_bottom {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 9.259vh;
+}
+
+.history_btn_content>button {
+  font-size: 1.667vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.083vh;
+  color: #999999;
+  border-radius: 2.037vh;
+  border: solid 0.093vh #d2d2d2;
+  padding: 1vh 2.407vh;
+  background: #ffffff;
+  cursor: pointer;
+  outline: none;
+  margin-right: 1.852vh;
+}
+
+.history_btn_content .search_box {
+  width: 25.185vh;
+  height: 4.074vh;
+  margin-right: 9.259vh;
+}
+
+.history_btn_content .search_box .ant-input-search>input {
+  width: 25.185vh;
+  height: 4.074vh;
+  border-radius: 2.037vh;
+  border: solid 0.093vh #d2d2d2;
+}
+
+.history_btn_content>button:disabled {
+  cursor: not-allowed;
+}
+
+.ant-table-middle>.ant-table-content>.ant-table-body>table>.ant-table-tbody>tr>td {
+  padding: 1.174vh;
+}
+
+.ant-pagination-item-active, .ant-pagination-item-active:focus, .ant-pagination-item-active:hover {
+  background-color: #0999fd;
+}
+
+.ant-pagination-item-active:focus a, .ant-pagination-item-active:hover a, .ant-pagination-item-active a {
+  color: #ffffff;
+}

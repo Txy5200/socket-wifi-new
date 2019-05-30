@@ -1,0 +1,179 @@
+.cop_report_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: -1.5vw;
+}
+
+.cop_report_reply {
+  margin-left: 23.611vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cop_report_reply>img {
+  cursor: pointer;
+  width: 5vh;
+}
+
+.cop_report_content_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cop_report_content_right>.cop_report_content_right_top {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-end;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div {
+  width: 23.854vw;
+  height: 32.222vh;
+  background-color: #ffffff;
+  box-shadow: 0vh 0.278vh 0.833vh 0vh rgba(9, 153, 253, 0.2);
+  border-radius: 0.926vh;
+  border: solid 0.093vh #f4f4f4;
+  margin-right: 3.769vh;
+  margin-bottom: 1.852vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div:nth-child(2), .cop_report_content_right>.cop_report_content_right_top>div:nth-child(4) {
+  margin-right: 0;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div>span {
+  font-family: MicrosoftYaHei;
+  font-size: 2.222vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #152e34;
+  padding-top: 1.976vh;
+  width: 100%;
+  text-align: center;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>span {
+  background-image: linear-gradient(-30deg, #37abfd 0%, #82ccff 100%), linear-gradient( #58b7fe, #58b7fe);
+  background-blend-mode: normal, normal;
+  /* border-radius: 1.852vh; */
+  padding-bottom: 2.222vh;
+  color: #ffffff;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>ul {
+  display: flex;
+  flex-direction: column;
+  padding-left: 3.918vh;
+  width: 100%;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>ul>li {
+  display: flex;
+  align-items: center;
+  margin-top: 1.407vh;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>ul>li>i {
+  width: 1.389vh;
+  height: 0.278vh;
+  background-color: #0999fd;
+  border-radius: 0.092vh;
+  display: block;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>ul>li>span {
+  font-size: 1.667vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4c4c4c;
+  margin-left: 1.759vh;
+  width: 17.852vh;
+}
+
+.cop_report_content_right>.cop_report_content_right_top>div.gait_chart>ul>li>label {
+  font-size: 1.851vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vh;
+  color: #4c4c4c;
+  margin-left: 2.407vh;
+}
+
+.cop_report_content_right_top .common-line-react {
+  width: 41.093vh;
+  height: 25.297vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cop_report_content_right_top .common-line-react>div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.press_info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: -6.9vh;
+}
+
+.press_info .playback_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.press_info .playback_content>.playback_content_top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.press_info .playback_content>.playback_content_top .dynamic_pressure_content {
+  margin-left: 41.389vh;
+}
+
+.press_info .playback_content>.playback_content_top .cop_content {
+  margin-left: 7.13vh;
+}
+
+.press_info .playback_content>.playback_content_bottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.press_info .playback_content>.playback_content_bottom>img {
+  width: 5vh;
+  margin-left: 44.593vh;
+  cursor: pointer;
+}
+
+.press_info .inspection_color {
+  margin-left: 16.111vh;
+}
+
+.press_info .inspection_color>img {
+  width: 5.741vh;
+}
+
+.copLine-bottom-span {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #0999fd;
+}

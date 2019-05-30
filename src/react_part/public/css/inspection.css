@@ -1,0 +1,279 @@
+.inspection_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.user_info_card {
+  background: url('../icons/user-background.png') top left no-repeat;
+  width: 18.854vw;
+  height: 26.563vw;
+  background-color: #ffffff;
+  box-shadow: 0.208vw 0.359vw 0.365vw 0vw rgba(145, 202, 255, 0.2);
+  border-radius: 1.042vw;
+  background-size: 19.854vw;
+}
+
+.inspection_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  width: 100%;
+}
+
+.start_inspection_btn {
+  background: url('../icons/starttest.png') top left no-repeat;
+  width: 9.792vw;
+  height: 3.073vw;
+  border: none;
+  outline: none;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.end_inspection_btn {
+  background: url('../icons/Enddetection.png') top left no-repeat;
+  width: 9.792vw;
+  height: 3.073vw;
+  border: none;
+  outline: none;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.user_info_card {
+  display: flex;
+  flex-direction: column;
+}
+
+.user_info_card .top_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.302vw;
+}
+
+.user_info_card .top_info .user_image img {
+  margin-left: 1.615vw;
+  width: 1.354vw;
+  height: 1.302vw;
+}
+
+.user_info_card .top_info .user_change {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #ffffff;
+  margin-right: 1.563vw;
+  cursor: pointer;
+}
+
+.user_info_card .patient_info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.572vw;
+  margin-left: 1.615vw;
+  margin-right: 1.615vw;
+}
+
+.user_info_card .patient_info>label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.094vw;
+}
+
+.user_info_card .patient_info>label>span {
+  font-family: MicrosoftYaHei;
+  font-size: 0.938vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #ffffff;
+}
+
+.user_info_card .patient_info>label>input {
+  border: none;
+  border-bottom: 1px solid #a6d7ff;
+  font-size: 0.729vw;
+  font-weight: normal;
+  font-stretch: normal;
+  color: #ffffff;
+  padding: 0.26vw 0;
+  margin-top: 0.573vw;
+  background: none;
+  outline: none;
+}
+
+.user_info_card .sign_info {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2.3vw 1.615vw;
+}
+
+.user_info_card .sign_info>div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.729vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #838383;
+  padding: 1.042vw;
+  width: 50%;
+}
+
+.user_info_card .sign_info>div:first-child {
+  border-right: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+}
+
+.user_info_card .sign_info>div:nth-child(2) {
+  border-bottom: 1px solid #efefef;
+}
+
+.user_info_card .sign_info>div:nth-child(3) {
+  border-right: 1px solid #efefef;
+}
+
+.user_info_card .sign_info>div>label {
+  display: flex;
+  align-items: center;
+  font-size: 0.938vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #0999fd;
+}
+
+.user_info_card .sign_info>div>label>input {
+  border: none;
+  font-size: 0.938vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #0999fd;
+  width: 4vw;
+  text-align: end;
+}
+
+.cop_content, .dynamic_pressure_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inspection_color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inspection_color>img {
+  width: 3.177vw;
+  height: 25.313vw;
+}
+
+.inspection_content .inspection_reply_btn {
+  position: absolute;
+  right: 12.448vw;
+  top: 4.323vw;
+  width: 2.813vw;
+  cursor: pointer;
+}
+
+.inspection_content .inspection_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inspection_content .inspection_see_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 7.188vw;
+  margin-bottom: 0.5vw;
+  font-family: MicrosoftYaHei;
+  font-size: 1.563vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #0999fd;
+  cursor: pointer;
+}
+
+.inspection_content .inspection_reply_btn>img {
+  width: 2.813vw;
+}
+
+.cop_content>span, .dynamic_pressure_content>span {
+  font-family: MicrosoftYaHei;
+  font-size: 1.457vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #595a5b;
+}
+
+.dynamic_pressure_content_img {
+  background: url('../icons/Sole.png') no-repeat;
+  width: 25.543vw;
+  margin-top: 4.01vw;
+  height: 28.021vw;
+  background-size: 23.543vw 28.021vw;
+  background-position-x: 0.85vw;
+}
+
+.dynamic_pressure_content_img>div {
+  width: 23.543vw !important;
+  height: 28.021vw !important;
+}
+
+.dynamic_pressure_content_img>div>canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cop_content>img, .dynamic_pressure_content>img {
+  width: 23.543vw;
+  margin-top: 4.01vw;
+}
+
+.inspection_modal .ant-modal-header {
+  background-image: linear-gradient(0deg, #0484dd 0%, #35a9fa 100%), linear-gradient( #219aee, #219aee);
+  background-blend-mode: normal, normal;
+}
+
+.inspection_modal .ant-modal-title {
+  color: #ffffff;
+  text-align: center;
+}
+
+.inspection_modal .ant-modal-close-x {
+  color: #ffffff;
+}
+
+.inspection_modal .ant-modal {
+  width: 42.685vh !important;
+}
+
+.setting_content.inspection {
+  margin-top: 0;
+}
+
+.scatter-bottom-span {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #0999fd;
+}

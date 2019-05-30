@@ -1,0 +1,158 @@
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.container_content {
+  height: 100%;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top_menus {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 3.958vw;
+  box-shadow: 0.26vw 0.453vw 0.365vw 0vw rgba(9, 153, 253, 0.09);
+  top: 0;
+  left: 0;
+  padding: 0.365vw 4.323vw 0.625vw 2.604vw;
+  background: #FFFFFF;
+}
+
+.top_menus>img {
+  width: 6.042vw;
+  height: 2.708vw;
+}
+
+.content_menu>div>img {
+  width: 1.771vw;
+  height: 1.771vw;
+}
+
+.content_menu>div>label {
+  font-size: 0.735vw;
+  margin-top: 0.469vw;
+}
+
+.content_menu>div>label.selLabel {
+  color: #0999fd;
+}
+
+.top_menus>div.content_menu {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.top_menus>div.content_menu>div {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.703vw;
+}
+
+.container_content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4.1vw;
+}
+
+.rightUserInfo {
+  cursor: pointer;
+}
+
+.rightUserInfo>img {
+  width: 2.5vw;
+  height: 2.5vw;
+}
+
+.logout_content {
+  display: flex;
+  align-items: center;
+}
+
+.logout_content>img {
+  width: 3.333vh;
+  height: 3.333vh;
+}
+
+.logout_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.926vh;
+}
+
+.logout_info>span {
+  font-size: 1.296vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.056vh;
+  color: #666666;
+}
+
+.logout_info>.logout_btn {
+  cursor: pointer;
+  font-size: 1.296vh;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0.056vh;
+  color: #4c4c4c;
+  margin-top: 1vh;
+}
+
+.export_pdf_btn img {
+  width: 3.021vw;
+  height: 3.148vh;
+  margin-right: 1.667vw;
+  cursor: pointer;
+}
+
+.export_pdf_btn img.export_pdf_img_sel {
+  cursor: not-allowed;
+}
+
+.back_btn {
+  border: none;
+  background: url('../icons/Return-normal.png') no-repeat center center;
+  background-size: 100%;
+  width: 2.292vw;
+  height: 3.148vh;
+  cursor: pointer;
+}
+
+.back_btn:disabled {
+  background: url('../icons/Return.png') no-repeat center center;
+  cursor: not-allowed;
+  background-size: 100%
+}
+
+.forward_btn {
+  background: url('../icons/Forward-normal.png') no-repeat center center;
+  border: none;
+  background-size: 100%;
+  width: 2.292vw;
+  height: 3.148vh;
+  cursor: pointer;
+}
+
+.forward_btn:disabled {
+  background: url('../icons/Forward.png') no-repeat center center;
+  cursor: not-allowed;
+  background-size: 100%
+}
+
+.history_btn {
+  margin-right: 1.667vw;
+}

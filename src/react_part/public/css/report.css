@@ -1,0 +1,152 @@
+.report_top_content {
+  display: flex;
+  flex-flow: wrap;
+  padding-right: 4.896vw;
+  overflow: auto;
+}
+
+.basic_report_patient {
+  width: 50%;
+  display: flex;
+}
+
+.basic_report_patient .patient_content {
+  background: linear-gradient(to bottom, #79c2ff 0%, #51b4fe 50%, #32a9fd 100%);
+  border-radius: 1.042vw;
+  padding-top: 0.938vw;
+  padding-left: 1.51vw;
+  padding-right: 0.573vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.542vw;
+  margin-left: 5.208vw;
+  width: 18.854vw;
+  height: 8.698vw;
+  padding-bottom: 1.354vw;
+}
+
+.basic_report_patient .top_info {
+  display: flex;
+  justify-content: space-between;
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  font-weight: normal;
+  font-stretch: normal;
+  /* line-height: 0.271vw; */
+  letter-spacing: 0vw;
+  color: #ffffff;
+}
+
+.basic_report_patient .top_info .user_image {
+  width: 1.563vw;
+  height: 1.615vw;
+  margin-top: 0.365vw;
+}
+
+.basic_report_patient .top_info .user_image>img {
+  width: 100%;
+  height: 100%;
+}
+
+.basic_report_patient .top_info .user_change {}
+
+.basic_report_patient .patient_info {
+  display: flex;
+  flex-flow: wrap;
+  margin: 0.417vw;
+}
+
+.basic_report_patient .patient_info>span {
+  font-size: 1.243vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #ffffff;
+  padding: 0 0.573vw;
+  width: 33%;
+  text-align: center;
+}
+
+.basic_report_patient .patient_info>span:nth-child(2), .basic_report_patient .patient_info>span:first-child {
+  border-right: 1px solid #a6d7ff;
+}
+
+.basic_report_patient .patient_info>span:last-child {
+  border-top: 1px solid #a6d7ff;
+  padding-top: 0.521vw;
+  width: 100%;
+  margin-top: 0.469vw;
+}
+
+.report_top_content .switch_btn {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.report_top_content .switch_btn>div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.938vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #4c4c4c;
+  margin-right: 1.146vw;
+  margin-top: 1.49vw;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.report_top_content .switch_btn>div:last-child {
+  margin-right: 0;
+}
+
+.report_top_content .switch_btn>div.sel {
+  color: #0999fd;
+}
+
+.report_top_content .switch_btn>div>button {
+  width: 5vw;
+  height: 2.5vw;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.report_top_content .switch_btn>div>span {
+  margin-top: 0.729vw;
+}
+
+.report_top_content .switch_btn>div .basic_btn {
+  background: url(../icons/report.png);
+  background-size: 100% 100%;
+}
+
+.report_top_content .switch_btn>div .cop_btn {
+  background: url(../icons/copreport.png);
+  background-size: 100% 100%;
+}
+
+.report_top_content .switch_btn>div .press_btn {
+  background: url(../icons/video.png);
+  background-size: 100% 100%;
+}
+
+.report_top_content .switch_btn>div.sel .basic_btn {
+  background: url(../icons/report-blue.png);
+  background-size: 100% 100%;
+}
+
+.report_top_content .switch_btn>div.sel .cop_btn {
+  background: url(../icons/copreport-blue.png);
+  background-size: 100% 100%;
+}
+
+.report_top_content .switch_btn>div.sel .press_btn {
+  background: url(../icons/video-blue.png);
+  background-size: 100% 100%;
+}
