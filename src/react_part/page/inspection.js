@@ -103,7 +103,7 @@ class Inspection extends Component {
         cancelText: '否',
         okText: '是',
         onCancel: () => {
-          deleteHistoryRecord([recordInfo._id])
+          deleteHistoryRecord([recordInfo.record_time])
         },
         onOk: () => { }
       })
@@ -121,7 +121,7 @@ class Inspection extends Component {
         array: deviceArrayJson[key]
       })
     }
-    console.log('array====>', array)
+    // console.log('array====>', array)
 
     return (
       <div className={'inspection_content'}>

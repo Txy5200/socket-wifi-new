@@ -45,10 +45,10 @@ export const saveWifiData = ({ clientName, wifiData }) => {
   let wifiObj = {}
   wifiObj['recordID'] = variables.recordInfo.record_time
   wifiObj['clientName'] = clientName
-  
-  if(wifiData_temp.length >= 1000){
+
+  if (wifiData_temp.length >= 1000) {
     wifiObj['wifiData'] = wifiData_temp
-    wifiObj['recordTime'] = moment.format('YYYY-MM-DD HH:mm:ss')
+    wifiObj['recordTime'] = moment().format('YYYY-MM-DD HH:mm:ss')
     wifi_temp.push(wifiObj)
     wtemp--
     wifiData_temp = []
@@ -84,7 +84,7 @@ export const openSerialport = ({ shoe_size }, cb) => {
       } else {
         // 恢复socket数据接收
         socketResume(err => {
-          if(err) console.log('socketResume err', err)
+          if (err) console.log('socketResume err', err)
         })
         // 设置全局变量
         variables.userInfo = { shoe_size }
@@ -105,12 +105,12 @@ export const closeSerialport = (_, cb) => {
   // })
   // sendWiFiDataToSave()
   // cb()
-  
+
   closePort(err => {
     if (err) return cb(null, err, -1)
     // 关闭socket数据接收
     socketPause(err => {
-      if(err) console.log('socketPause err', err)
+      if (err) console.log('socketPause err', err)
     })
     cb()
 

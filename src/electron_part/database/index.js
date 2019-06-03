@@ -12,7 +12,7 @@ export const initDataBase = () => {
 export const resetAdmin = ({ oldPwd, newPwd }, callback) => {
   adminDB.findOne({ username: 'admin' }, (_, admin) => {
     if (admin.password != oldPwd) return callback('密码不对')
-    adminDB.update({ username: 'admin' }, { $set: { password: newPwd }})
+    adminDB.update({ username: 'admin' }, { $set: { password: newPwd } })
     callback()
   })
 }
@@ -32,7 +32,7 @@ export const insertRecord = ({ shoe_size }, callback) => {
 }
 
 export const removeRecords = (ids, callback) => {
-  recordDB.remove({ _id: { $in: ids } }, { multi: true }, callback)
+  recordDB.remove({ record_time: { $in: ids } }, { multi: true }, callback)
   pressDB.remove({ recordID: { $in: ids } }, { multi: true })
   wifiPpmDB.remove({ recordID: { $in: ids } }, { multi: true })
 }
@@ -62,8 +62,8 @@ export const insertSerialprotData = ({ press, pressAD, posture }) => {
 }
 
 export const insertWifiData = (data) => {
-  wifiPpmDB.insert(data, function(err, newdoc){
-    if(err) console.log('insertWifiData======', err)
+  wifiPpmDB.insert(data, function (err, newdoc) {
+    if (err) console.log('insertWifiData======', err)
   })
 }
 
@@ -73,13 +73,13 @@ export const findRecords = ({ page = 1, limit = 10, keyword }, callback) => {
   let skip = (page - 1) * limit
 
   const cb = query => {
-    recordDB.count(query, function(_, count) {
+    recordDB.count(query, function (_, count) {
       recordDB
         .find(query)
         .sort({ start_time: -1 })
         .skip(skip)
         .limit(limit)
-        .exec(async function(_, items) {
+        .exec(async function (_, items) {
           let pageInfo = {
             page,
             limit,
@@ -87,7 +87,7 @@ export const findRecords = ({ page = 1, limit = 10, keyword }, callback) => {
           }
 
           for (let item of items) {
-            let pa = await new Promise(function(resolve) {
+            let pa = await new Promise(function (resolve) {
               patientDB.findOne({ certificate_no: item.certificate_no }, (_, p) => {
                 resolve(p)
               })
