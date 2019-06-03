@@ -40,6 +40,7 @@ class Inspection extends Component {
     const { data_position, wifiPpm } = globalVariable;
     const { left, right } = data_position;
     let pressureArrayData = [...left, ...right];
+    // console.log('wifiPpm======>', wifiPpm)
     this.setState({ pressureArrayData, deviceArrayJson: wifiPpm });
   }
 
@@ -85,7 +86,7 @@ class Inspection extends Component {
       message.error('串口关闭错误')
     } else {
       clearInterval(timeOut);
-      if(!recordInfo._id){
+      if (!recordInfo._id) {
         message.error('记录数据错误')
         return
       }
@@ -104,7 +105,7 @@ class Inspection extends Component {
         onCancel: () => {
           deleteHistoryRecord([recordInfo._id])
         },
-        onOk: () => {}
+        onOk: () => { }
       })
     }
   }
@@ -120,45 +121,46 @@ class Inspection extends Component {
         array: deviceArrayJson[key]
       })
     }
+    console.log('array====>', array)
 
     return (
-        <div className={'inspection_content'}>
-          <div className={'inspection_info'}>
-            <div className={'dynamic_pressure_content'}>
-              <span>动态压力显示</span>
-              <ChartDynamicPressureScatter data={pressureArrayData} />
-            </div>
-            <div className={'line_charts'}>
-              {array.map((item, index) => {
-                return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
-              })}
-            </div>
-            <div className={'inspection_color'}>
-              <img src={`${__dirname}/../public/icons/color.png`} />
-            </div>
+      <div className={'inspection_content'}>
+        <div className={'inspection_info'}>
+          <div className={'dynamic_pressure_content'}>
+            <span>动态压力显示</span>
+            <ChartDynamicPressureScatter data={pressureArrayData} />
           </div>
-          <div className={'inspection_bottom'}>
-            {startState ? (
+          <div className={'line_charts'}>
+            {array.map((item, index) => {
+              return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
+            })}
+          </div>
+          <div className={'inspection_color'}>
+            <img src={`${__dirname}/../public/icons/color.png`} />
+          </div>
+        </div>
+        <div className={'inspection_bottom'}>
+          {startState ? (
+            <div className={'inspection_btn'}>
+              <button
+                className={'end_inspection_btn'}
+                onClick={() => {
+                  this.endInspect()
+                }}
+              />
+            </div>
+          ) : (
               <div className={'inspection_btn'}>
                 <button
-                  className={'end_inspection_btn'}
+                  className={'start_inspection_btn'}
                   onClick={() => {
-                    this.endInspect()
+                    this.startInspect();
                   }}
                 />
               </div>
-            ) : (
-                <div className={'inspection_btn'}>
-                  <button
-                    className={'start_inspection_btn'}
-                    onClick={() => {
-                      this.startInspect();
-                    }}
-                  />
-                </div>
-              )}
-          </div>
+            )}
         </div>
+      </div>
     );
   }
 }

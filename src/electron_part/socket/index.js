@@ -17,7 +17,7 @@ child.on('message', msg => {
   if (msg.type === 'saveWifiData') {
     const { clientName, wifiData } = msg
 
-    variables.wifiPpm[clientName].push(...wifiData)
+    variables.wifiPpm[clientName] = wifiData //.push(...wifiData)
     // 储存原始数据
     saveWifiData(msg)
   }
@@ -25,12 +25,12 @@ child.on('message', msg => {
 
 // 回复数据读取
 export const socketResume = cb => {
-  child.send({type: 'resume'})
+  child.send({ type: 'resume' })
   cb()
 }
 
 // 关闭数据读取
 export const socketPause = cb => {
-  child.send({type: 'pause'})
+  child.send({ type: 'pause' })
   cb()
 }
