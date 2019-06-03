@@ -30,7 +30,6 @@ class Inspection extends Component {
 
   componentWillUnmount() {
     clearInterval(this.timeOut);
-    this.props.setHeaderState({ clickState: true });
   }
 
   // 开始检测后定时获取全局变量中的数据
@@ -45,13 +44,12 @@ class Inspection extends Component {
   // 开始检测
   startInspect() {
     console.log('************开始检测************');
-    const { openSerialport, setHeaderState } = this.props;
+    const { openSerialport } = this.props;
     let result = openSerialport()
     if (result.code !== 200) {
       message.error('串口打开错误')
       return
     } else {
-      setHeaderState({ clickState: false });
       let timeOut = setInterval(this.intervalFunc.bind(this), 20);
       this.setState({ startState: true, endState: false, timeOut });
     }
@@ -74,7 +72,6 @@ class Inspection extends Component {
       }
       // 存贮当前记录id
       this.props.setCurrentRecordID({ currentRecordId: recordInfo._id });
-      this.props.setHeaderState({ clickState: true });
       this.setState({ startState: false, endState: true });
       Modal.confirm({
         content: '是否保存',
