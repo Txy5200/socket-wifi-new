@@ -94,7 +94,7 @@ function formatData(name) {
     let wifiData = getAD(data[2], data[3])
     let clientName = name.split(':')[3]
     clientName = clientName.split('.').join('-')
-    process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData, recordTime: moment().format('YYYY-MM-DD HH:mm:ss') })
+    process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData })
 
 
     // 调用业务方法

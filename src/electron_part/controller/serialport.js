@@ -3,11 +3,13 @@ import { openSerialport as openPort, closeSerialport as closePort } from '../ser
 import { socketResume, socketPause } from '../socket'
 import { variables } from '../global_variables'
 import { initializeCompute } from '../compute'
+import moment from 'moment'
 
 let press_temp = []
 let ptemp = 10000 // 计数器 用于批量插入数据
 let wifi_temp = []
 let wtemp = 10000 // 计数器 用于批量插入数据
+let wifiData_temp = []
 
 const sendDataToSave = () => {
   insertSerialprotData({ press: press_temp })
@@ -38,16 +40,20 @@ export const saveData = ({ sensorData_AD, sensorData, posturedata }) => {
 }
 
 // 保存wifi数据到数据库
-export const saveWifiData = ({ clientName, wifiData, recordTime }) => {
-
+export const saveWifiData = ({ clientName, wifiData }) => {
+  wifiData_temp.push(wifiData)
   let wifiObj = {}
   wifiObj['recordID'] = variables.recordInfo.record_time
   wifiObj['clientName'] = clientName
-  wifiObj['wifiData'] = wifiData
-  wifiObj['recordTime'] = recordTime
-  wifi_temp.push(wifiObj)
+  
+  if(wifiData_temp.length >= 1000){
+    wifiObj['wifiData'] = wifiData_temp
+    wifiObj['recordTime'] = moment.format('YYYY-MM-DD HH:mm:ss')
+    wifi_temp.push(wifiObj)
+    wtemp--
+    wifiData_temp = []
+  }
 
-  wtemp--
   if (wtemp <= 0) sendWiFiDataToSave()
 }
 
