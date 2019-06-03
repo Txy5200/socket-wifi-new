@@ -60,16 +60,16 @@ export const conputeData = data => {
   let data_buffer = Buffer.from(data.slice(0, 44))
   if (glChild.connected) glChild.stdin.write(data_buffer)
 
-  const { start_time } = variables.recordInfo
-  const current_time = data[44]
-  if (!start_time || !current_time) {
-    console.log('缺少时间')
-  } else {
-    const start_buffer = timeToByteArray(start_time) // 生成6个字节的buffer
-    const current_buffer = timeToByteArray(current_time)
-    let buf = Buffer.concat([data_buffer, start_buffer, current_buffer])
-    if (gaitChild.connected) gaitChild.stdin.write(buf)
-  }
+  // const { start_time } = variables.recordInfo
+  // const current_time = data[44]
+  // if (!start_time || !current_time) {
+  //   console.log('缺少时间')
+  // } else {
+  //   const start_buffer = timeToByteArray(start_time) // 生成6个字节的buffer
+  //   const current_buffer = timeToByteArray(current_time)
+  //   let buf = Buffer.concat([data_buffer, start_buffer, current_buffer])
+  //   if (gaitChild.connected) gaitChild.stdin.write(buf)
+  // }
 }
 
 // 初始化变量

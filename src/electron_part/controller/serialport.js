@@ -77,7 +77,9 @@ export const openSerialport = ({ shoe_size }, cb) => {
         cb(null, err, -1)
       } else {
         // 恢复socket数据接收
-        socketResume()
+        socketResume(err => {
+          if(err) console.log('socketResume err', err)
+        })
         // 设置全局变量
         variables.userInfo = { shoe_size }
         variables.recordInfo = row
@@ -101,7 +103,9 @@ export const closeSerialport = (_, cb) => {
   closePort(err => {
     if (err) return cb(null, err, -1)
     // 关闭socket数据接收
-    socketPause()
+    socketPause(err => {
+      if(err) console.log('socketPause err', err)
+    })
     cb()
 
     // 计算站立平衡时，95%cop椭圆面积

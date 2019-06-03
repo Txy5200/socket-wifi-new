@@ -34,6 +34,7 @@ export const insertRecord = ({ shoe_size }, callback) => {
 export const removeRecords = (ids, callback) => {
   recordDB.remove({ _id: { $in: ids } }, { multi: true }, callback)
   pressDB.remove({ recordID: { $in: ids } }, { multi: true })
+  wifiPpmDB.remove({ recordID: { $in: ids } }, { multi: true })
 }
 
 export const insertSerialprotData = ({ press, pressAD, posture }) => {
