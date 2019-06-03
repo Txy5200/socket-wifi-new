@@ -15,11 +15,12 @@ child.on('message', msg => {
   // }
   // 接收到校验通过后的串口数据
   if (msg.type === 'saveWifiData') {
-    // console.log('saveWifiData==========', msg)
     const { clientName, wifiData } = msg
+
     let wifiPpm = variables.wifiPpm
     if(!wifiPpm[clientName]) wifiPpm[clientName] = []
     wifiPpm[clientName].push(wifiData)
+    console.log('============', variables)
     // 储存原始数据
     saveWifiData(msg)
   }

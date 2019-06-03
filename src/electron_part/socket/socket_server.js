@@ -6,7 +6,8 @@ let clientDataMap = {}
 let dataArray = {}
 
 // Start a TCP Server
-net.createServer({pauseOnConnect: true},function (socket) {
+
+let server = net.createServer(function (socket) {
   // Identify this client
   socket.name = socket.remoteAddress + ':' + socket.remotePort
 
@@ -23,6 +24,7 @@ net.createServer({pauseOnConnect: true},function (socket) {
   socket.on('data', function (data) {
     clientDataMap[socket.name].push(...data)
     formatData(socket.name)
+    // trampoline(formatData, socket.name)
   })
 
   // Remove the client from the list when it leaves
@@ -35,29 +37,47 @@ net.createServer({pauseOnConnect: true},function (socket) {
     console.log(socket.name + ' 客户端已关闭----')
     clients.splice(clients.indexOf(socket), 1)
   })
-  socket.on('error', function () {
-    console.log(socket.name + ' 客户端错误❌----')
-    clients.splice(clients.indexOf(socket), 1)
-  })
-  socket.on('timeout', function () {
-    console.log(socket.name + ' 客户端连接超时----')
+
+  socket.on('error', function (err) {
+    console.log(socket.name + ' 客户端错误❌----', err)
     clients.splice(clients.indexOf(socket), 1)
   })
 
-  process.on('message', msg => {
-    if (msg.type === 'resume') {
-      socket.resume()
-    }
-    if (msg.type === 'pause') {
-      socket.pause()
-    }
+  socket.on('timeout', function () {
+    console.log(socket.name + ' 客户端连接超时----')
+    clients.splice(clients.indexOf(socket), 1)
+    socket.end()
   })
-}).listen(8899)
+
+  socket.setTimeout(30000)
+})
+
+process.on('message', msg => {
+  if (msg.type === 'resume') {
+    // socket.resume()
+    server.listen(8899)
+  }
+  if (msg.type === 'pause') {
+    // socket.pause()
+    clients.forEach((socketTemp) => {
+      socketTemp.end()
+    })
+    server.close()
+  }
+})
+
+server.on('close', function() {
+  console.log('server关闭----')
+})
+
+server.on('error', function(err) {
+  console.log('server错误----', err)
+})
 
 function formatData(name) {
   if (clientDataMap[name] && clientDataMap[name].length > 8) {
     const data = clientDataMap[name].splice(0, 8)
-    // TODO
+
     if (!dataArray[name]) {
       dataArray[name] = []
     }
@@ -74,7 +94,21 @@ function formatData(name) {
 
     // 调用业务方法
     formatData(name)
+    // return function() {
+    //   return formatData(name)
+    // }
   }
+  return null
+}
+
+function trampoline(func, arg) {
+  var value = func(arg)
+
+  while(typeof value === "function") {
+      value = value()
+  }
+
+  return value
 }
 
 function getAD(data1, data2) {
