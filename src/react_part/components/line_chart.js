@@ -63,8 +63,8 @@ export default class ChartCopLine extends Component {
       //   end: 100
       // }],
       xAxis: {
-        // name: '',
-        // type: 'category',
+        name: '',
+        type: 'category',
         // // interval: 5,
         // // nameLocation: 'center',
         // // nameGap: 20,
@@ -76,7 +76,7 @@ export default class ChartCopLine extends Component {
         //   inside: true
         // },
         // data: xAxisData
-        type: 'value'
+        // type: 'value'
       },
       yAxis: {
         type: 'value',

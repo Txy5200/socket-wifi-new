@@ -14,7 +14,7 @@ let server = net.createServer(function (socket) {
   // Put this new client in the list
   clients.push(socket)
   clientDataMap[socket.name] = []
-  
+
   // Send a nice welcome message and announce
   socket.write('Welcome ' + socket.name + '\n')
   console.log(socket.name + ' 客户端已经连接')
@@ -66,11 +66,11 @@ process.on('message', msg => {
   }
 })
 
-server.on('close', function() {
+server.on('close', function () {
   console.log('server关闭----')
 })
 
-server.on('error', function(err) {
+server.on('error', function (err) {
   console.log('server错误----', err)
 })
 
@@ -78,19 +78,24 @@ function formatData(name) {
   if (clientDataMap[name] && clientDataMap[name].length > 8) {
     const data = clientDataMap[name].splice(0, 8)
 
-    if (!dataArray[name]) {
-      dataArray[name] = []
-    }
+    // if (!dataArray[name]) {
+    //   dataArray[name] = []
+    // }
 
-    dataArray[name].push(getAD(data[2], data[3]))
-    if (dataArray[name].length >= 1000) {
-      let wifiData = [...dataArray[name]]
-      let clientName = name.split(':')[3]
-      clientName = clientName.split('.').join('-')
-      process.send({type: 'saveWifiData', clientName: clientName, wifiData: wifiData, recordTime: moment().format('YYYY-MM-DD HH:mm:ss') })
+    // dataArray[name].push(getAD(data[2], data[3]))
+    // if (dataArray[name].length >= 1) {
+    //   let wifiData = [...dataArray[name]]
+    //   let clientName = name.split(':')[3]
+    //   clientName = clientName.split('.').join('-')
+    //   process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData, recordTime: moment().format('YYYY-MM-DD HH:mm:ss') })
 
-      dataArray[name] = []
-    }
+    //   dataArray[name] = []
+    // }
+    let wifiData = getAD(data[2], data[3])
+    let clientName = name.split(':')[3]
+    clientName = clientName.split('.').join('-')
+    process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData, recordTime: moment().format('YYYY-MM-DD HH:mm:ss') })
+
 
     // 调用业务方法
     formatData(name)
@@ -104,8 +109,8 @@ function formatData(name) {
 function trampoline(func, arg) {
   var value = func(arg)
 
-  while(typeof value === "function") {
-      value = value()
+  while (typeof value === "function") {
+    value = value()
   }
 
   return value

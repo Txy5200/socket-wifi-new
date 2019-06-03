@@ -17,7 +17,10 @@ child.on('message', msg => {
   if (msg.type === 'saveWifiData') {
     const { clientName, wifiData } = msg
 
-    variables.wifiPpm[clientName] = wifiData //.push(...wifiData)
+    variables.wifiPpm[clientName].push(wifiData)
+    if (variables.wifiPpm[clientName].length > 1000) {
+      variables.wifiPpm[clientName] = variables.wifiPpm[clientName].slice(-1000)
+    }
     // 储存原始数据
     saveWifiData(msg)
   }
