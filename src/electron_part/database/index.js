@@ -41,4 +41,10 @@ export const insertWifiData = (data) => {
   })
 }
 
+export const deleteAllRecord = callback => {
+  recordDB.remove({}, { multi: true }, callback)
+  pressDB.remove({}, { multi: true })
+  wifiPpmDB.remove({}, { multi: true })
+}
+
 export { recordDB, pressDB }
