@@ -38,7 +38,6 @@ class Inspection extends Component {
   // 开始检测后定时获取全局变量中的数据
   intervalFunc() {
     const { data_position, wifiPpm } = globalVariable;
-    console.log('============', globalVariable)
     const { left, right } = data_position;
     let pressureArrayData = [...left, ...right];
     this.setState({ pressureArrayData, deviceArrayJson: wifiPpm });

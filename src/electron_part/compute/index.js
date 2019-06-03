@@ -81,7 +81,12 @@ export const initializeCompute = () => {
     left: [],
     right: []
   }
-  variables.wifiPpm = {}
+  variables.wifiPpm = {
+    '192-168-1-101': [],
+    '192-168-1-102': [],
+    '192-168-1-103': [],
+    '192-168-1-104': []
+  }
   variables.cop_position = []
   variables.cop_draw = {
     x: [],

@@ -17,10 +17,7 @@ child.on('message', msg => {
   if (msg.type === 'saveWifiData') {
     const { clientName, wifiData } = msg
 
-    let wifiPpm = variables.wifiPpm
-    if(!wifiPpm[clientName]) wifiPpm[clientName] = []
-    wifiPpm[clientName].push(wifiData)
-    console.log('============', variables)
+    variables.wifiPpm[clientName].push(...wifiData)
     // 储存原始数据
     saveWifiData(msg)
   }
