@@ -1,8 +1,4 @@
 import { enableLiveReload } from 'electron-compile'
-import { initDataBase } from './electron_part/database'
-import path from 'path'
-import fs from 'fs'
-import os from 'os'
 
 // 定义全局变量，供页面使用
 global.variables = require('./electron_part/global_variables').variables
@@ -13,9 +9,6 @@ const { synchronousMessageCon, asynchronousMessageCon } = require('./electron_pa
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
-
-// 初始化数据库
-initDataBase()
 
 // 接收异步消息
 ipcMain.on('asynchronous-message', asynchronousMessageCon)

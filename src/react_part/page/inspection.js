@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, PatientInfoCard, SelectInput, ChartDynamicPressureScatter, CharLine } from '../components';
-import { Modal, message, Icon } from 'antd';
-import { history } from '../helper/history';
-import { openSerialport, closeSerialport, setHeaderState, setPatientInfo, playback, stopplay, setCurrentRecordID, setGaitInfo, setCopInfo, deleteHistoryRecord } from '../ducks';
-import moment from 'moment';
+import { ChartDynamicPressureScatter, CharLine } from '../components';
+import { Modal, message } from 'antd';
+import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecord } from '../ducks';
 const globalVariable = require('electron').remote.getGlobal('variables');
 message.config({
   top: 60
@@ -47,29 +45,13 @@ class Inspection extends Component {
   // 开始检测
   startInspect() {
     console.log('************开始检测************');
-    const { openSerialport, setPatientInfo, setHeaderState } = this.props;
-    // let { patientInfo } = this.state;
-    // let { name, certificateNo, shoeSize } = patientInfo;
-    // if (!name) {
-    //   message.error('请填写患者姓名');
-    //   return;
-    // }
-    // if (!certificateNo) {
-    //   message.error('请填写患者身份证');
-    //   return;
-    // }
-    // if (!shoeSize) {
-    //   message.error('请填写患者鞋码');
-    //   return;
-    // }
-    // let result = openSerialport(patientInfo)
+    const { openSerialport, setHeaderState } = this.props;
     let result = openSerialport()
     if (result.code !== 200) {
       message.error('串口打开错误')
       return
     } else {
       setHeaderState({ clickState: false });
-      // setPatientInfo({ ...patientInfo, inspectionTime: moment().format('YYYY-MM-DD HH:mm') });
       let timeOut = setInterval(this.intervalFunc.bind(this), 20);
       this.setState({ startState: true, endState: false, timeOut });
     }
@@ -78,7 +60,7 @@ class Inspection extends Component {
   // 结束检测
   endInspect() {
     console.log('************结束检测************')
-    const { recordInfo, gaitInfo, copInfo } = globalVariable
+    const { recordInfo } = globalVariable
     const { timeOut } = this.state;
     const { closeSerialport, deleteHistoryRecord } = this.props;
     let result = closeSerialport()
@@ -90,10 +72,6 @@ class Inspection extends Component {
         message.error('记录数据错误')
         return
       }
-      // 存贮当前步态信息
-      // this.props.setGaitInfo({ currentGaitInfo: gaitInfo })
-      // 存贮当前COP信息
-      // this.props.setCopInfo({ currentCopInfo: copInfo })
       // 存贮当前记录id
       this.props.setCurrentRecordID({ currentRecordId: recordInfo._id });
       this.props.setHeaderState({ clickState: true });
@@ -111,8 +89,7 @@ class Inspection extends Component {
   }
 
   render() {
-    let { deviceArrayJson, pressureArrayData, startState, endState, playState, initxAxisData } = this.state;
-    const { clickState } = this.props;
+    let { deviceArrayJson, pressureArrayData, startState, initxAxisData } = this.state;
 
     let array = []
     for (let key in deviceArrayJson) {
@@ -121,7 +98,6 @@ class Inspection extends Component {
         array: deviceArrayJson[key]
       })
     }
-    // console.log('array====>', array)
 
     return (
       <div className={'inspection_content'}>
@@ -166,8 +142,6 @@ class Inspection extends Component {
 }
 function mapStateToProps(state) {
   return {
-    clickState: state.globalSource.clickState,
-    patientInfo: state.patient.patientInfo,
     currentRecordId: state.globalSource.currentRecordId
   };
 }
@@ -177,13 +151,7 @@ export default connect(
   {
     openSerialport,
     closeSerialport,
-    setHeaderState,
-    setPatientInfo,
-    playback,
     setCurrentRecordID,
-    setGaitInfo,
-    setCopInfo,
-    stopplay,
     deleteHistoryRecord
   }
 )(Inspection);

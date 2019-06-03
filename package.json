@@ -1,9 +1,9 @@
 {
-  "name": "ai_robot_gaitsys",
+  "name": "emg",
   "version": "0.1.0",
   "private": true,
   "main": "src/main.js",
-  "description": "gaitsys",
+  "description": "emg",
   "author": "ai-robot",
   "scripts": {
     "start": "electron-forge start",
@@ -32,8 +32,7 @@
     "redux": "^4.0.0",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.3.0",
-    "serialport": "^7.0.2",
-    "ws": "^6.2.1"
+    "serialport": "^7.0.2"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

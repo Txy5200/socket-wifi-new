@@ -16,26 +16,6 @@ export const history = (state = initState, action = {}) => {
   }
 }
 
-// 获取历史记录
-export const getHistoryRecord = ({ keyword, page, limit }) => dispatch => {
-  try {
-    let result = sendSyncMessage('recordList', { keyword, page, limit })
-    let docs = result.data.items || []
-    let pageInfo = result.data.pageInfo || {}
-    if (result && result.code === 200) {
-      dispatch({
-        type: HISTORY_RECORD,
-        history_record_data: docs,
-        pageInfo
-      })
-    }
-    return docs
-  } catch (e) {
-    console.log('getHistoryRecord error', e)
-    return e.message
-  }
-}
-
 // 删除历史记录
 export const deleteHistoryRecord = (ids) => dispatch => {
   try {
