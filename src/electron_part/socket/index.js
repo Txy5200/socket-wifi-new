@@ -6,14 +6,14 @@ import { variables } from '../global_variables'
 let child = fork(__dirname + '/socket_server.js')
 child.on('message', msg => {
   // TODO 子进程错误、关闭子进程
-  
+
   // 接收到校验通过后的串口数据
   if (msg.type === 'saveWifiData') {
     const { clientName, wifiData } = msg
 
     variables.wifiPpm[clientName].push(wifiData)
-    if (variables.wifiPpm[clientName].length > 1000) {
-      variables.wifiPpm[clientName] = variables.wifiPpm[clientName].slice(-1000)
+    if (variables.wifiPpm[clientName].length > 3000) {
+      variables.wifiPpm[clientName] = variables.wifiPpm[clientName].slice(-3000)
     }
     // 储存原始数据
     saveWifiData(msg)

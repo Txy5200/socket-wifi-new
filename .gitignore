@@ -63,3 +63,6 @@ yarn.lock
 
 # db file
 src/electron_part/database/db/*
+
+# out file
+out/*

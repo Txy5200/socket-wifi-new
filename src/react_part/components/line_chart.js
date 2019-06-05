@@ -27,7 +27,7 @@ export default class ChartCopLine extends Component {
       <div className={'line-react'}>
         <div ref={'lineChart'}
           className={'common_line_chart'}
-          style={{ width: '500px', height: '150px' }}
+          style={{ width: '800px', height: '170px' }}
         />
       </div>
     )
@@ -57,45 +57,22 @@ export default class ChartCopLine extends Component {
         top: '30%',
         containLabel: true
       },
-      // dataZoom: [{
-      //   type: 'inside',
-      //   start: 0,
-      //   end: 100
-      // }],
       xAxis: {
         name: '',
         type: 'category',
-        // // interval: 5,
-        // // nameLocation: 'center',
-        // // nameGap: 20,
-        // // nameTextStyle: {
-        // //   fontStyle: 'normal',
-        // //   fontSize: 8
-        // // },
-        // axisTick: {
-        //   inside: true
-        // },
-        // data: xAxisData
-        // type: 'value'
+        axisTick: {
+          show: false
+        },
+        data: xAxisData
       },
       yAxis: {
         type: 'value',
-        // axisTick: {
-        //   inside: true
-        // },
-        // nameTextStyle: {
-        //   fontStyle: 'normal',
-        //   fontSize: 8
-        // },
+        axisTick: {
+          inside: true
+        },
         splitLine: {
           show: false
-        },
-        // min: function (value) {
-        //   return value.min - 0.5
-        // },
-        // max: function (value) {
-        //   return value.max + 0.5
-        // }
+        }
       },
       animation: false,
       series: [{

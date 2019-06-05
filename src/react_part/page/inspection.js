@@ -22,7 +22,7 @@ class Inspection extends Component {
 
   componentDidMount() {
     let initxAxisData = []
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 3000; i++) {
       initxAxisData.push(i)
     }
     this.setState({ initxAxisData })
@@ -37,13 +37,11 @@ class Inspection extends Component {
     const { data_position, wifiPpm } = globalVariable;
     const { left, right } = data_position;
     let pressureArrayData = [...left, ...right];
-    // console.log('wifiPpm======>', wifiPpm)
     this.setState({ pressureArrayData, deviceArrayJson: wifiPpm });
   }
 
   // 开始检测
   startInspect() {
-    console.log('************开始检测************');
     const { openSerialport } = this.props;
     let result = openSerialport()
     if (result.code !== 200) {
@@ -57,7 +55,6 @@ class Inspection extends Component {
 
   // 结束检测
   endInspect() {
-    console.log('************结束检测************')
     const { recordInfo } = globalVariable
     const { timeOut } = this.state;
     const { closeSerialport, deleteHistoryRecord } = this.props;
