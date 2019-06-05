@@ -1,9 +1,7 @@
 const net = require('net')
-const moment = require('moment')
 // Keep track of the chat clients
 let clients = []
 let clientDataMap = {}
-let dataArray = {}
 
 // Start a TCP Server
 
@@ -24,6 +22,7 @@ let server = net.createServer(function (socket) {
   socket.on('data', function (data) {
     clientDataMap[socket.name].push(...data)
     formatData(socket.name)
+    // 数据量太大直接递归会导致堆栈溢出,采用下面的方式调用
     // trampoline(formatData, socket.name)
   })
 
@@ -54,11 +53,9 @@ let server = net.createServer(function (socket) {
 
 process.on('message', msg => {
   if (msg.type === 'resume') {
-    // socket.resume()
     server.listen(8899)
   }
   if (msg.type === 'pause') {
-    // socket.pause()
     clients.forEach((socketTemp) => {
       socketTemp.end()
     })
@@ -75,44 +72,29 @@ server.on('error', function (err) {
 })
 
 function formatData(name) {
-  if (clientDataMap[name] && clientDataMap[name].length > 8) {
+  while (clientDataMap[name] && clientDataMap[name].length > 8) {
     const data = clientDataMap[name].splice(0, 8)
 
-    // if (!dataArray[name]) {
-    //   dataArray[name] = []
-    // }
-
-    // dataArray[name].push(getAD(data[2], data[3]))
-    // if (dataArray[name].length >= 1) {
-    //   let wifiData = [...dataArray[name]]
-    //   let clientName = name.split(':')[3]
-    //   clientName = clientName.split('.').join('-')
-    //   process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData, recordTime: moment().format('YYYY-MM-DD HH:mm:ss') })
-
-    //   dataArray[name] = []
-    // }
     let wifiData = getAD(data[2], data[3])
     let clientName = name.split(':')[3]
     clientName = clientName.split('.').join('-')
     process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData })
 
-
     // 调用业务方法
-    formatData(name)
+    // formatData(name)
+    // 数据量太大时直接递归会导致堆栈溢出,采用下面的方式调用
     // return function() {
     //   return formatData(name)
     // }
   }
-  return null
+  // return null
 }
 
 function trampoline(func, arg) {
   var value = func(arg)
-
   while (typeof value === "function") {
     value = value()
   }
-
   return value
 }
 
