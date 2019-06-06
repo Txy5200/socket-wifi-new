@@ -65,8 +65,9 @@ export const openSerialport = ({ shoe_size }, cb) => {
   insertRecord({ shoe_size }, (_, row) => {
     if (!row) return cb(null, '创建记录失败', -1)
 
-    // Mac测试 不需要打开串口
-    // // 恢复socket数据接收
+    // *******Mac测试 不需要打开串口*******
+    
+    // 恢复socket数据接收
     // socketResume(err => {
     //   if (err) console.log('socketResume err', err)
     // })
@@ -76,6 +77,8 @@ export const openSerialport = ({ shoe_size }, cb) => {
     // // 初始化计算模块
     // initializeCompute()
     // cb()
+
+    // *******Mac测试*******
 
     // 打开串口
     openPort(err => {
@@ -101,8 +104,9 @@ export const openSerialport = ({ shoe_size }, cb) => {
 
 // 关闭串口、并结束计算,关闭socket数据接收
 export const closeSerialport = (_, cb) => {
-  // Mac测试 不需要关闭串口
-  // // 关闭socket数据接收
+  // *******Mac测试 不需要关闭串口*******
+
+  // 关闭socket数据接收
   // socketPause(err => {
   //   if (err) console.log('socketPause err', err)
   // })
@@ -111,6 +115,8 @@ export const closeSerialport = (_, cb) => {
   // // 结束时，保存缓存里的数据
   // sendDataToSave()
   // sendWiFiDataToSave()
+
+  // *******Mac测试*******
 
   closePort(err => {
     if (err) return cb(null, err, -1)
