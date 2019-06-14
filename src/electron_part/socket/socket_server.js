@@ -6,6 +6,7 @@ let clientDataMap = {}
 // Start a TCP Server
 
 let server = net.createServer(function (socket) {
+  socket.bytesRead = 1000
   // Identify this client
   socket.name = socket.remoteAddress + ':' + socket.remotePort
 
@@ -20,8 +21,8 @@ let server = net.createServer(function (socket) {
   // Handle incoming messages from clients.
   // 收到数据
   socket.on('data', function (data) {
-    clientDataMap[socket.name].push(...data)
-    formatData(socket.name)
+    // clientDataMap[socket.name].push(...data)
+    formatData(socket.name, data)
     // 数据量太大直接递归会导致堆栈溢出,采用下面的方式调用
     // trampoline(formatData, socket.name)
   })
@@ -71,24 +72,35 @@ server.on('error', function (err) {
   console.log('server错误----', err)
 })
 
-function formatData(name) {
-  while (clientDataMap[name] && clientDataMap[name].length > 8) {
-    const data = clientDataMap[name].splice(0, 8)
-
-    let wifiData = getAD(data[2], data[3])
-    let clientName = name.split(':')[3]
-    clientName = clientName.split('.').join('-')
-    process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData })
-
-    // 调用业务方法
-    // formatData(name)
-    // 数据量太大时直接递归会导致堆栈溢出,采用下面的方式调用
-    // return function() {
-    //   return formatData(name)
-    // }
+function formatData(name, data) {
+  for(let i=0; i<data.length; i++){
+    if(((data[i]&0xe0)==0x00)&&((data[i+1]&0xe0)==0x60)){
+      let wifiData = getAD(data[i], data[i+1])
+      let clientName = name.split(':')[3]
+      clientName = clientName.split('.').join('-')
+      process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData })
+    }
   }
-  // return null
 }
+
+// function formatData(name) {
+//   while (clientDataMap[name] && clientDataMap[name].length > 8) {
+//     const data = clientDataMap[name].splice(0, 8)
+
+//     let wifiData = getAD(data[2], data[3])
+//     let clientName = name.split(':')[3]
+//     clientName = clientName.split('.').join('-')
+//     process.send({ type: 'saveWifiData', clientName: clientName, wifiData: wifiData })
+
+//     // 调用业务方法
+//     // formatData(name)
+//     // 数据量太大时直接递归会导致堆栈溢出,采用下面的方式调用
+//     // return function() {
+//     //   return formatData(name)
+//     // }
+//   }
+//   // return null
+// }
 
 function trampoline(func, arg) {
   var value = func(arg)
