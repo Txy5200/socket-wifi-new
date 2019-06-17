@@ -215,14 +215,14 @@ class Inspection extends Component {
               onClick={() => {
                 this.exportDataBase(1)
               }}
-            >导出Press数据库</Button>
+            >导出压力值数据</Button>
           </div>
           <div>
             <Button
               onClick={() => {
                 this.exportDataBase(0)
               }}
-            >导出Wifi数据库</Button>
+            >导出肌电数据</Button>
           </div>
         </div>
       </div>
