@@ -1,27 +1,22 @@
 const net = require('net')
 // Keep track of the chat clients
 let clients = []
-let clientDataMap = {}
 
 // Start a TCP Server
 
 let server = net.createServer(function (socket) {
-  socket.bytesRead = 1000
   // Identify this client
   socket.name = socket.remoteAddress + ':' + socket.remotePort
 
   // Put this new client in the list
   clients.push(socket)
-  clientDataMap[socket.name] = []
 
   // Send a nice welcome message and announce
   socket.write('Welcome ' + socket.name + '\n')
-  console.log(socket.name + ' 客户端已经连接')
 
   // Handle incoming messages from clients.
   // 收到数据
   socket.on('data', function (data) {
-    // clientDataMap[socket.name].push(...data)
     formatData(socket.name, data)
     // 数据量太大直接递归会导致堆栈溢出,采用下面的方式调用
     // trampoline(formatData, socket.name)
@@ -54,13 +49,15 @@ let server = net.createServer(function (socket) {
 
 process.on('message', msg => {
   if (msg.type === 'resume') {
+    console.log('开始检测')
     server.listen(8899)
   }
   if (msg.type === 'pause') {
+    console.log('结束检测')
+    server.close()
     clients.forEach((socketTemp) => {
       socketTemp.end()
     })
-    server.close()
   }
 })
 

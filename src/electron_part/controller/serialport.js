@@ -6,10 +6,10 @@ import { initializeCompute } from '../compute'
 import moment from 'moment'
 
 let press_temp = []
-let ptemp = 10000 // 计数器 用于批量插入数据
-let wifi_temp = []
-let wtemp = 10000 // 计数器 用于批量插入数据
-let wifiData_temp = []
+let ptemp = 10000 // 计数器 用于批量插入足底压力数据
+let wtemp = 10000 // 计数器 用于批量插入肌电数据
+let wifiRecord_temp = [] // 肌电记录临时值
+let wifiData_temp = {} // 4个客户端肌电数据临时值
 
 const sendDataToSave = () => {
   insertSerialprotData({ press: press_temp })
@@ -18,8 +18,9 @@ const sendDataToSave = () => {
 }
 
 const sendWiFiDataToSave = () => {
-  insertWifiData(wifi_temp)
-  wifi_temp = []
+  insertWifiData(wifiRecord_temp)
+  wifiRecord_temp = []
+  wifiData_temp = {}
   wtemp = 10000
 }
 
@@ -41,18 +42,19 @@ export const saveData = ({ sensorData_AD, sensorData, posturedata }) => {
 
 // 保存wifi数据到数据库
 export const saveWifiData = ({ clientName, wifiData }) => {
-  wifiData_temp.push(wifiData)
-  let wifiObj = {}
-  wifiObj['recordID'] = variables.recordInfo.record_time
-  wifiObj['clientName'] = clientName
+  if(!wifiData_temp[clientName]) wifiData_temp[clientName] = []
+  if(wifiData_temp[clientName].length >= 1000){
+    let wifiObj = {}
+    wifiObj['recordID'] = variables.recordInfo.record_time
+    wifiObj['clientName'] = clientName
+    wifiObj['recordTime'] = Date.now()//moment().format('YYYY-MM-DD HH:mm:ss')
+    wifiObj['wifiData'] = wifiData_temp[clientName]
 
-  if (wifiData_temp.length >= 1000) {
-    wifiObj['wifiData'] = wifiData_temp
-    wifiObj['recordTime'] = new Date().getTime()//moment().format('YYYY-MM-DD HH:mm:ss')
-    wifi_temp.push(wifiObj)
+    wifiRecord_temp.push(wifiObj)
     wtemp--
-    wifiData_temp = []
+    wifiData_temp[clientName] = []
   }
+  wifiData_temp[clientName].push(wifiData)
 
   if (wtemp <= 0) sendWiFiDataToSave()
 }
