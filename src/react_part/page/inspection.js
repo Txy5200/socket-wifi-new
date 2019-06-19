@@ -95,36 +95,36 @@ class Inspection extends Component {
       title: '导出数据库文件',
       buttonLabel: '导出',
       defaultPath: type ? 'PressData.xlsx' : 'EMGData.xlsx'
-    },async (filePath) => {
-      if(filePath){
+    }, async (filePath) => {
+      if (filePath) {
         const isDevMode = process.execPath.match(/[\\/]electron/)
         let userDataPath = app.getPath('userData') + '/db'
         if (isDevMode) userDataPath = path.join(__dirname, '../../electron_part/database/db')
 
-        if(type){
-          const data = [["记录ID", "CurrentTime", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
-          "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
-          "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
-          "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
-          "压力值", "压力值"]];
+        if (type) {
+          const data = [["记录ID", "CurrentTime", "L/R", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
+            "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
+            "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
+            "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
+            "压力值", "压力值"]];
           const readliner = readline.createInterface({
             input: fs.createReadStream(`${userDataPath}/press.db`),
           });
 
-          readliner.on('line', function(chunk) {
+          readliner.on('line', function (chunk) {
             //处理每一行数据
             chunk = JSON.parse(chunk)
-            let {recordID, currentTime, forces} = chunk
-            let tempData = [recordID, currentTime]
+            let { recordID, currentTime, forces, LorR } = chunk
+            let tempData = [recordID, currentTime, LorR]
             tempData = [...tempData, ...forces]
             data.push(tempData)
           });
-           
-          readliner.on('close', function() {
+
+          readliner.on('close', function () {
             //文件读取结束
-            let buffer = xlsx.build([{name: "压力值统计", data}]);
+            let buffer = xlsx.build([{ name: "压力值统计", data }]);
             fs.writeFile(filePath, buffer, (err) => {
-              if(err) {
+              if (err) {
                 console.log('==========', err)
                 message.error('导出数据库错误')
                 return
@@ -132,25 +132,25 @@ class Inspection extends Component {
               message.success('导出数据库成功')
             })
           });
-        }else{
-          const data =[['记录ID', 'RecordTime', 'ClientName', 'EMGData']]
+        } else {
+          const data = [['记录ID', 'RecordTime', 'ClientName', 'EMGData']]
           const readliner = readline.createInterface({
             input: fs.createReadStream(`${userDataPath}/wifiPpm.db`),
           });
 
-          readliner.on('line', function(chunk) {
+          readliner.on('line', function (chunk) {
             //处理每一行数据
             chunk = JSON.parse(chunk)
-            let {recordID, clientName, recordTime, wifiData } = chunk
+            let { recordID, clientName, recordTime, wifiData } = chunk
             let tempData = [recordID, recordTime, clientName, wifiData]
             data.push(tempData)
           });
-           
-          readliner.on('close', function() {
+
+          readliner.on('close', function () {
             //文件读取结束
-            let buffer = xlsx.build([{name: "肌电数据统计", data}]);
+            let buffer = xlsx.build([{ name: "肌电数据统计", data }]);
             fs.writeFile(filePath, buffer, (err) => {
-              if(err) {
+              if (err) {
                 console.log('==========', err)
                 message.error('导出数据库错误')
                 return

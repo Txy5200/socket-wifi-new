@@ -48,7 +48,7 @@ export const saveWifiData = ({ clientName, wifiData }) => {
 
   if (wifiData_temp.length >= 1000) {
     wifiObj['wifiData'] = wifiData_temp
-    wifiObj['recordTime'] = moment().format('YYYY-MM-DD HH:mm:ss')
+    wifiObj['recordTime'] = new Date().getTime()//moment().format('YYYY-MM-DD HH:mm:ss')
     wifi_temp.push(wifiObj)
     wtemp--
     wifiData_temp = []
@@ -66,7 +66,7 @@ export const openSerialport = ({ shoe_size }, cb) => {
     if (!row) return cb(null, '创建记录失败', -1)
 
     // *******Mac测试 不需要打开串口*******
-    
+
     // 恢复socket数据接收
     // socketResume(err => {
     //   if (err) console.log('socketResume err', err)

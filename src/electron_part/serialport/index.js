@@ -4,6 +4,7 @@ import { saveData } from '../controller/serialport'
 import { conputeData } from '../compute'
 const except = ['SOC', 'MALS', 'Bluetooth-Incoming-Port', 'usbmodem14411']
 
+
 // 记录已连接的串口
 let connectPorts = {}
 // 记录链接失败的串口
