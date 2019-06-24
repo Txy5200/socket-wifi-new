@@ -7,6 +7,7 @@ import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecor
 import fs from 'fs'
 import path from 'path'
 import readline from 'readline'
+import { formatEmgData } from '../helper/util'
 
 const globalVariable = require('electron').remote.getGlobal('variables');
 const { dialog, app } = require('electron').remote
@@ -166,13 +167,17 @@ class Inspection extends Component {
   render() {
     let { deviceArrayJson, pressureArrayData, startState, initxAxisData } = this.state;
 
-    let array = []
-    for (let key in deviceArrayJson) {
-      array.push({
-        name: key,
-        array: deviceArrayJson[key]
-      })
-    }
+    // 原来只显示四个图表
+    // let array = []
+    // for (let key in deviceArrayJson) {
+    //   array.push({
+    //     name: key,
+    //     array: deviceArrayJson[key]
+    //   })
+    // }
+
+    // 现在显示8+8个图表
+    let array = formatEmgData(deviceArrayJson)
 
     return (
       <div className={'inspection_content'}>
@@ -182,6 +187,17 @@ class Inspection extends Component {
             <ChartDynamicPressureScatter data={pressureArrayData} />
           </div>
           <div className={'line_charts'}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+              <span>左腿(L)</span>
+            </div>
+            {array.map((item, index) => {
+              return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
+            })}
+          </div>
+          <div className={'line_charts'}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+              <span>右腿(R)</span>
+            </div>
             {array.map((item, index) => {
               return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
             })}

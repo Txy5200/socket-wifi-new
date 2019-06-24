@@ -27,7 +27,7 @@ export default class ChartCopLine extends Component {
       <div className={'line-react'}>
         <div ref={'lineChart'}
           className={'common_line_chart'}
-          style={{ width: '800px', height: '170px' }}
+          style={{ width: '420px', height: '100px' }}
         />
       </div>
     )

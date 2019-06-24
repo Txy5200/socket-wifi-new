@@ -207,3 +207,23 @@ export const formatSliderTime = (msTime) => {
 
   return `${totalTimeHou}:${totalTimeMin}:${totalTimeSec}`
 }
+
+// 格式化为8个显示数据
+export const formatEmgData = (deviceArrayJson) => {
+  let deviceArray = []
+  let resDataArray = []
+  for (let key in deviceArrayJson) {
+    deviceArray.push(deviceArrayJson[key])
+  }
+
+  let chartName = ['股直肌(RF)','阔筋膜张肌(TFL)','股外侧肌(VL)','股二头肌(BF)','半腱肌(SE)','腓肠肌(LG)','比目鱼肌(SO)','胫骨前肌(TA)']
+  for(let i = 0, j = 0; i < 8; i++, j++){
+    let keyValue = chartName[i]
+    if(j > 3) j = 0
+    resDataArray.push({
+      name: keyValue,
+      array: deviceArray[j]
+    })
+  }
+  return resDataArray
+}
