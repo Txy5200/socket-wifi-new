@@ -1,4 +1,4 @@
-import { recordDB, pressDB, wifiPpmDB } from './nedb'
+import { recordDB, pressDB, wifiPpmDB, emgDB } from './nedb'
 import moment from 'moment'
 
 export const insertRecord = ({ shoe_size }, callback) => {
@@ -38,6 +38,12 @@ export const insertSerialprotData = ({ press, pressAD, posture }) => {
 export const insertWifiData = (data) => {
   wifiPpmDB.insert(data, function (err, newdoc) {
     if (err) console.log('insertWifiData======', err)
+  })
+}
+
+export const insertEmgData = (data) => {
+  emgDB.insert(data, function (err, newdoc) {
+    if (err) console.log('insertEmgData======', err)
   })
 }
 
