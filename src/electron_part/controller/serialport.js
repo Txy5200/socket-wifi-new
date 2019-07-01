@@ -204,7 +204,7 @@ export const closeSerialport = (_, cb) => {
         let emgArray = []
         for(let i = 0; i < len; i++){
           let startPos = pressPosition[i] * 5
-          let endPos = pressPosition[i+1] * 5 + 1
+          let endPos = (pressPosition[i+1] - 1) * 5 + 1
           emgArray.push(emgData.slice(startPos, endPos))
         }
         emgDataArray[key] = emgArray
