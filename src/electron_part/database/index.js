@@ -11,6 +11,7 @@ export const removeRecords = (ids, callback) => {
   recordDB.remove({ record_time: { $in: ids } }, { multi: true }, callback)
   pressDB.remove({ recordID: { $in: ids } }, { multi: true })
   wifiPpmDB.remove({ recordID: { $in: ids } }, { multi: true })
+  emgDB.remove({ recordID: { $in: ids } }, { multi: true })
 }
 
 export const insertSerialprotData = ({ press, pressAD, posture }) => {
