@@ -184,32 +184,35 @@ export const closeSerialport = (_, cb) => {
     let pressPosition = [] // 左腿着地的点
     for(let i = 0; i < pressTemp.length; i++){
       if(pressTemp[i] > Threshold){
+        //着地记录
         if(isLand()){
           pressPosition.push(i)
         }
       }else{
+        // 离地不处理
         isLeave()
       }
     }
     let len = pressPosition.length
-    pressPosition[len-1] = pressPosition[len-1] - 1
-
-    emgObj['pressPosition'] = pressPosition
-    let emgDataArray = {}
-
-    for(let key in emgTemp){
-      let emgData = emgTemp[key]
-      let emgArray = []
-      for(let i = 0; i < len; i++){
-        let startPos = pressPosition[i] * 5
-        let endPos = pressPosition[i+1] * 5 + 1
-        emgArray.push(emgData.slice(startPos, endPos))
+    if(len > 2) {
+      pressPosition[len-1] = pressPosition[len-1] - 1
+      emgObj['pressPosition'] = pressPosition
+      let emgDataArray = {}
+  
+      for(let key in emgTemp){
+        let emgData = emgTemp[key]
+        let emgArray = []
+        for(let i = 0; i < len; i++){
+          let startPos = pressPosition[i] * 5
+          let endPos = pressPosition[i+1] * 5 + 1
+          emgArray.push(emgData.slice(startPos, endPos))
+        }
+        emgDataArray[key] = emgArray
       }
-      emgDataArray[key] = emgArray
+  
+      emgObj['emgData'] = emgDataArray
+  
+      sendEmgDataToSave(emgObj)
     }
-
-    emgObj['emgData'] = emgDataArray
-
-    sendEmgDataToSave(emgObj)
   })
 }
