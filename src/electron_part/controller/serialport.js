@@ -115,37 +115,37 @@ export const openSerialport = ({ shoe_size }, cb) => {
     // *******Mac测试 不需要打开串口*******
 
     // 恢复socket数据接收
-    socketResume(err => {
-      if (err) console.log('socketResume err', err)
-    })
-    // 设置全局变量
-    variables.userInfo = { shoe_size }
-    variables.recordInfo = row
-    // 初始化计算模块
-    initializeCompute()
-    cb()
+    // socketResume(err => {
+    //   if (err) console.log('socketResume err', err)
+    // })
+    // // 设置全局变量
+    // variables.userInfo = { shoe_size }
+    // variables.recordInfo = row
+    // // 初始化计算模块
+    // initializeCompute()
+    // cb()
 
     // *******Mac测试*******
 
     // 打开串口
-    // openPort(err => {
-    //   if (err) {
-    //     // 串口打开失败时
-    //     removeRecords([row._id])
-    //     cb(null, err, -1)
-    //   } else {
-    //     // 恢复socket数据接收
-    //     socketResume(err => {
-    //       if (err) console.log('socketResume err', err)
-    //     })
-    //     // 设置全局变量
-    //     variables.userInfo = { shoe_size }
-    //     variables.recordInfo = row
-    //     // 初始化计算模块
-    //     initializeCompute()
-    //     cb()
-    //   }
-    // })
+    openPort(err => {
+      if (err) {
+        // 串口打开失败时
+        removeRecords([row._id])
+        cb(null, err, -1)
+      } else {
+        // 恢复socket数据接收
+        socketResume(err => {
+          if (err) console.log('socketResume err', err)
+        })
+        // 设置全局变量
+        variables.userInfo = { shoe_size }
+        variables.recordInfo = row
+        // 初始化计算模块
+        initializeCompute()
+        cb()
+      }
+    })
   })
 }
 
