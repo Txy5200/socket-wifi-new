@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import xlsx from 'node-xlsx';
 import { connect } from 'react-redux';
 import { ChartDynamicPressureScatter, CharLine } from '../components';
-import { Modal, message, Button } from 'antd';
-import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecord } from '../ducks';
+import { Modal, message, Button, Input } from 'antd'
+import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecord, setUserInfo } from '../ducks';
 import fs from 'fs'
 import path from 'path'
 import readline from 'readline'
@@ -18,12 +18,13 @@ class Inspection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deviceArrayJson: {},
+      deviceArrayJson: globalVariable.wifiPpm || {},
       initxAxisData: [],
       startState: false,
       endState: false,
       playState: false,
-      pressureArrayData: []
+      pressureArrayData: [],
+      userData: {}
     };
   }
 
@@ -32,7 +33,8 @@ class Inspection extends Component {
     for (let i = 0; i < 3000; i++) {
       initxAxisData.push(i)
     }
-    this.setState({ initxAxisData })
+    const { user } = this.props
+    this.setState({ initxAxisData, userData: { ...user } })
   }
 
   componentWillUnmount() {
@@ -55,21 +57,21 @@ class Inspection extends Component {
       message.error('串口打开错误')
       return
     } else {
-      let timeOut = setInterval(this.intervalFunc.bind(this), 20);
-      this.setState({ startState: true, endState: false, timeOut });
+      this.timeOut = setInterval(this.intervalFunc.bind(this), 20);
+      this.setState({ startState: true, endState: false });
     }
   }
 
   // 结束检测
   endInspect() {
     const { recordInfo } = globalVariable
-    const { timeOut } = this.state;
+    // const { timeOut } = this.state;
     const { closeSerialport, deleteHistoryRecord } = this.props;
     let result = closeSerialport()
     if (result.code !== 200) {
       message.error('串口关闭错误')
     } else {
-      clearInterval(timeOut);
+      clearInterval(this.timeOut);
       if (!recordInfo._id) {
         message.error('记录数据错误')
         return
@@ -164,6 +166,63 @@ class Inspection extends Component {
     })
   }
 
+  setUserInfo(key, value) {
+    const { user, setUserInfo } = this.props
+    const { userData } = this.state
+    user[key] = value
+    userData[key] = value
+    setUserInfo(user)
+    this.setState({ userData })
+  }
+
+  renderTopUserInfo() {
+    const { userData } = this.state
+    const { name = '', sex = '', age = '' } = userData
+    return (
+      <div className={'user_info'}>
+        <div className={'user_info_item'}>
+          <span>姓名：</span>
+          <div>
+            <Input
+              type={'text'}
+              value={name}
+              placeholder={'请填写姓名'}
+              onChange={e => {
+                this.setUserInfo('name', e.target.value)
+              }}
+            />
+          </div>
+        </div>
+        <div className={'user_info_item'}>
+          <span>性别：</span>
+          <div>
+            <Input
+              type={'text'}
+              value={sex}
+              placeholder={'请填写性别'}
+              onChange={e => {
+                this.setUserInfo('sex', e.target.value)
+              }}
+            />
+          </div>
+        </div>
+        <div className={'user_info_item'}>
+          <span>年龄：</span>
+          <div>
+            <Input
+              type={'text'}
+              value={age}
+              placeholder={'请填写年龄'}
+              onChange={e => {
+                this.setUserInfo('age', e.target.value)
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     let { deviceArrayJson, pressureArrayData, startState, initxAxisData } = this.state;
 
@@ -178,67 +237,87 @@ class Inspection extends Component {
 
     // 现在显示8+8个图表
     let array = formatEmgData(deviceArrayJson)
-
+    let arrayL = array.slice(0, 8)
+    let arrayR = array.slice(8, 16)
+    // console.log('=======arrayL======arrayR========', arrayL, arrayR)
     return (
       <div className={'inspection_content'}>
         <div className={'inspection_info'}>
           <div className={'dynamic_pressure_content'}>
+            {this.renderTopUserInfo()}
             <span>动态压力显示</span>
             <ChartDynamicPressureScatter data={pressureArrayData} />
-          </div>
-          <div className={'line_charts'}>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-              <span>左腿(L)</span>
+            <div className={'inspection_bottom'}>
+              <div className={'bottom_items'}>
+                <div>
+                  <Button
+                    onClick={() => {
+                      if (startState) {
+                        this.endInspect()
+                      } else {
+                        this.startInspect();
+                      }
+                    }}
+                  >
+                    {startState ? '结束检测' : '开始检测'}
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => {
+                      this.exportDataBase(1)
+                    }}
+                  >导出压力值数据</Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => {
+                      this.exportDataBase(0)
+                    }}
+                  >导出肌电数据</Button>
+                </div>
+              </div>
+              <div className={'bottom_items'}>
+                <div>
+                  <Button
+                    onClick={() => {
+                    }}
+                  >压力分析</Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => {
+                    }}
+                  >肌肉协调性分析</Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => {
+                    }}
+                  >综合报告</Button>
+                </div>
+              </div>
             </div>
-            {array.map((item, index) => {
-              return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
-            })}
-          </div>
-          <div className={'line_charts'}>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-              <span>右腿(R)</span>
-            </div>
-            {array.map((item, index) => {
-              return <CharLine key={index} data={item.array} seriesName={item.name} xAxisData={initxAxisData} />
-            })}
           </div>
           <div className={'inspection_color'}>
             <img src={`${__dirname}/../public/icons/color.png`} />
           </div>
-        </div>
-        <div className={'inspection_bottom'}>
-          {startState ? (
-            <div className={'inspection_btn'}>
-              <button
-                className={'end_inspection_btn'}
-                onClick={() => {
-                  this.endInspect()
-                }}
-              />
+          <div className={'line_charts'} style={{ marginLeft: '60px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <span>左腿(L)</span>
             </div>
-          ) : (
-              <div className={'inspection_btn'}>
-                <button
-                  className={'start_inspection_btn'}
-                  onClick={() => {
-                    this.startInspect();
-                  }}
-                />
-              </div>
-            )}
-          <div>
-            <Button
-              onClick={() => {
-                this.exportDataBase(1)
-              }}
-            >导出压力值数据</Button>
+            {/* xAxisData={initxAxisData} */}
+            {arrayL.map((item, index) => {
+              return <CharLine key={index} data={item.array} seriesName={item.name} />
+            })}
           </div>
-          <div>
-            <Button
-              onClick={() => {
-                this.exportDataBase(0)
-              }}
-            >导出肌电数据</Button>
+          <div className={'line_charts'} style={{ margin: '0 15px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <span>右腿(R)</span>
+            </div>
+            {arrayR.map((item, index) => {
+              return <CharLine key={index} data={item.array} seriesName={item.name} />
+            })}
           </div>
         </div>
       </div>
@@ -247,7 +326,8 @@ class Inspection extends Component {
 }
 function mapStateToProps(state) {
   return {
-    currentRecordId: state.globalSource.currentRecordId
+    currentRecordId: state.globalSource.currentRecordId,
+    user: state.user.user
   };
 }
 
@@ -257,6 +337,7 @@ export default connect(
     openSerialport,
     closeSerialport,
     setCurrentRecordID,
-    deleteHistoryRecord
+    deleteHistoryRecord,
+    setUserInfo
   }
 )(Inspection);

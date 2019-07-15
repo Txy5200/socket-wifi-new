@@ -1,10 +1,13 @@
 .inspection_content {
-  flex: 1;
+  /* flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   position: relative;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 33px;
 }
 
 .user_info_card {
@@ -17,12 +20,30 @@
   background-size: 19.854vw;
 }
 
+.common_line_chart {
+  display: block;
+  margin: 0 auto;
+  width: 100% !important;
+}
+
 .inspection_info {
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex: 1;
   width: 100%;
+}
+
+.user_info {
+  display: flex;
+  flex-direction: column;
+  /* margin: 10px 0; */
+}
+
+.user_info_item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 0 0;
 }
 
 .start_inspection_btn {
@@ -197,6 +218,16 @@
   justify-content: center;
 }
 
+.inspection_content .inspection_bottom .bottom_items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inspection_content .inspection_bottom .bottom_items>div {
+  margin: 5px;
+}
+
 .inspection_content .inspection_see_btn {
   display: flex;
   align-items: center;
@@ -228,7 +259,7 @@
 .dynamic_pressure_content_img {
   background: url('../icons/Sole.png') no-repeat;
   width: 25.543vw;
-  margin-top: 4.01vw;
+  /* margin-top: 4.01vw; */
   height: 28.021vw;
   background-size: 23.543vw 28.021vw;
   background-position-x: 0.85vw;
@@ -286,4 +317,6 @@
 
 .line-react {
   width: 100%;
+  margin-top: 10px;
+  border-bottom: 1px solid #dcdcdc;
 }

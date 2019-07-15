@@ -132,8 +132,8 @@ export const getUrlByPress = (array, type) => {
   let array1 = []
   let picArray = []
   const sort = index => {
-    if(!array.length){
-      array1 = [2,2,2]
+    if (!array.length) {
+      array1 = [2, 2, 2]
       return
     }
     if (index >= array.length) return
@@ -175,20 +175,20 @@ export const getUrlByPress = (array, type) => {
  * @param rotate 为旋转角度
  * @returns Array 坐标点
  */
-export const createEllipse = ({x,y,a,b,angle}) => {
+export const createEllipse = ({ x, y, a, b, angle }) => {
   //step是等于1除以长轴值a和b中的较大者
   //i每次循环增加1/step，表示度数的增加
   //这样可以使得每次循环所绘制的路径（弧线）接近1像素
   let step = (a > b) ? 1 / a : 1 / b,
-  points=[];
+    points = [];
 
-  for (let i = 0; i < 2 * Math.PI; i += step){
+  for (let i = 0; i < 2 * Math.PI; i += step) {
     //x²/a²+y²/b²=1 (a>b>0)
     //参数方程为x = a * cos(i), y = b * sin(i)，
     //参数为i，表示度数（弧度） 
     let x1 = a * Math.cos(i) * Math.cos(angle) - b * Math.sin(i) * Math.sin(angle) + x;//x+a*Math.cos(i);
     let y1 = a * Math.cos(i) * Math.sin(angle) + b * Math.sin(i) * Math.cos(angle) + y;//y+b*Math.sin(i);
-    let point= [x1,y1]
+    let point = [x1, y1]
 
     points.push(point);
   }
@@ -199,10 +199,10 @@ export const createEllipse = ({x,y,a,b,angle}) => {
 
 // 格式化毫秒时间
 export const formatSliderTime = (msTime) => {
-  let totalTimeHou = parseInt(msTime/1000/60/60%60)
-  let totalTimeMin = parseInt(msTime/1000/60%60)
+  let totalTimeHou = parseInt(msTime / 1000 / 60 / 60 % 60)
+  let totalTimeMin = parseInt(msTime / 1000 / 60 % 60)
   totalTimeMin = totalTimeMin < 10 ? '0' + totalTimeMin : totalTimeMin
-  let totalTimeSec = parseInt(msTime/1000%60)
+  let totalTimeSec = parseInt(msTime / 1000 % 60)
   totalTimeSec = totalTimeSec < 10 ? '0' + totalTimeSec : totalTimeSec
 
   return `${totalTimeHou}:${totalTimeMin}:${totalTimeSec}`
@@ -212,18 +212,97 @@ export const formatSliderTime = (msTime) => {
 export const formatEmgData = (deviceArrayJson) => {
   let deviceArray = []
   let resDataArray = []
-  for (let key in deviceArrayJson) {
-    deviceArray.push(deviceArrayJson[key])
+
+  let chartName = {
+    '192-168-1-101': '股直肌(RF)',
+    '192-168-1-102': '阔筋膜张肌(TFL)',
+    '192-168-1-103': '股外侧肌(VL)',
+    '192-168-1-104': '股二头肌(BF)',
+    '192-168-1-105': '半腱肌(SE)',
+    '192-168-1-106': '腓肠肌(LG)',
+    '192-168-1-107': '比目鱼肌(SO)',
+    '192-168-1-108': '胫骨前肌(TA)',
+    '192-168-1-109': '股直肌(RF)',
+    '192-168-1-110': '阔筋膜张肌(TFL)',
+    '192-168-1-111': '股外侧肌(VL)',
+    '192-168-1-112': '股二头肌(BF)',
+    '192-168-1-113': '半腱肌(SE)',
+    '192-168-1-114': '腓肠肌(LG)',
+    '192-168-1-115': '比目鱼肌(SO)',
+    '192-168-1-116': '胫骨前肌(TA)'
+  }
+  for (let key in chartName) {
+    for (let key1 in deviceArrayJson) {
+      if (key === key1) {
+        resDataArray.push({
+          name: chartName[key],
+          array: deviceArrayJson[key1]
+        })
+      }
+    }
   }
 
-  let chartName = ['股直肌(RF)','阔筋膜张肌(TFL)','股外侧肌(VL)','股二头肌(BF)','半腱肌(SE)','腓肠肌(LG)','比目鱼肌(SO)','胫骨前肌(TA)']
-  for(let i = 0, j = 0; i < 8; i++, j++){
-    let keyValue = chartName[i]
-    if(j > 3) j = 0
-    resDataArray.push({
-      name: keyValue,
-      array: deviceArray[j]
-    })
-  }
+  // for (let key in deviceArrayJson) {
+  //   // deviceArray.push(deviceArrayJson[key])
+  //   deviceArray.push({
+  //     array: deviceArrayJson[key],
+  //     ip: key
+  //   })
+  // }
+
+  // console.log('deviceArray======', deviceArray)
+  // let chartName = [
+  //   '股直肌(RF)',
+  //   '阔筋膜张肌(TFL)',
+  //   '股外侧肌(VL)',
+  //   '股二头肌(BF)',
+  //   '半腱肌(SE)',
+  //   '腓肠肌(LG)',
+  //   '比目鱼肌(SO)',
+  //   '胫骨前肌(TA)'
+  // ]
+  // let chartName = [
+  //   { name: '股直肌(RF)', ip: '192-168-1-101' },
+  //   { name: '阔筋膜张肌(TFL)', ip: '192-168-1-102' },
+  //   { name: '股外侧肌(VL)', ip: '192-168-1-103' },
+  //   { name: '股二头肌(BF)', ip: '192-168-1-104' },
+  //   { name: '半腱肌(SE)', ip: '192-168-1-105' },
+  //   { name: '腓肠肌(LG)', ip: '192-168-1-106' },
+  //   { name: '比目鱼肌(SO)', ip: '192-168-1-107' },
+  //   { name: '胫骨前肌(TA)', ip: '192-168-1-108' },
+
+  //   { name: '股直肌(RF)', ip: '192-168-1-109' },
+  //   { name: '阔筋膜张肌(TFL)', ip: '192-168-1-110' },
+  //   { name: '股外侧肌(VL)', ip: '192-168-1-111' },
+  //   { name: '股二头肌(BF)', ip: '192-168-1-112' },
+  //   { name: '半腱肌(SE)', ip: '192-168-1-113' },
+  //   { name: '腓肠肌(LG)', ip: '192-168-1-114' },
+  //   { name: '比目鱼肌(SO)', ip: '192-168-1-115' },
+  //   { name: '胫骨前肌(TA)', ip: '192-168-1-116' }
+  // ]
+
+  // for (let i = 0, j = 0; i < 8; i++ , j++) {
+  //   let keyValue = chartName[i]
+  //   if (j > 3) j = 0
+  //   resDataArray.push({
+  //     name: keyValue,
+  //     array: deviceArray[j]
+  //   })
+  // }
+
+  // for (let i = 0; i < chartName.length; i++) {
+  //   let keyValue = chartName[i].name
+
+  //   for (let j = 0; j < deviceArray.length; j++) {
+  //     if (chartName[i].ip === deviceArray[j].ip) {
+  //       resDataArray.push({
+  //         name: keyValue,
+  //         array: deviceArray[j].array
+  //       })
+  //     }
+  //   }
+  // }
+
+  // console.log('resDataArray======', resDataArray)
   return resDataArray
 }

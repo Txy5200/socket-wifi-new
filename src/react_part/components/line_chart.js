@@ -5,10 +5,19 @@ import echarts from 'echarts'
 export default class ChartCopLine extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      initxAxisData: []
+    }
   }
 
   componentDidMount() {
-    this.initLineChart()
+    let { initxAxisData } = this.state
+    for (let i = 0; i < 3000; i++) {
+      initxAxisData.push(i)
+    }
+    this.setState({ initxAxisData }, () => {
+      this.initLineChart()
+    })
   }
 
   componentDidUpdate() {
@@ -17,8 +26,9 @@ export default class ChartCopLine extends Component {
 
   initLineChart() {
     const { yAxisName, xAxisName, data, type, seriesName, unit, xAxisData } = this.props
+    const { initxAxisData } = this.state
     let myChart = echarts.init(this.refs.lineChart)
-    let options = this.setLineOption({ yAxisName, xAxisName, data, type, seriesName, unit, xAxisData })
+    let options = this.setLineOption({ yAxisName, xAxisName, data, type, seriesName, unit, xAxisData: initxAxisData })
     myChart.setOption(options)
   }
 
@@ -27,7 +37,7 @@ export default class ChartCopLine extends Component {
       <div className={'line-react'}>
         <div ref={'lineChart'}
           className={'common_line_chart'}
-          style={{ width: '420px', height: '100px' }}
+          style={{ width: '420px', height: '80px' }}
         />
       </div>
     )
@@ -36,22 +46,26 @@ export default class ChartCopLine extends Component {
   setLineOption({ yAxisName, xAxisName, data, type, seriesName, unit, xAxisData }) {
     return {
       title: {
-        text: seriesName
-      },
-      tooltip: {
-        formatter: function (params) {
-          return params[0].name + '：' + params[0].value
-        },
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
+        text: seriesName,
+        textStyle: {
+          fontSize: 11
         }
       },
+      tooltip: {
+        // formatter: function (params) {
+        //   return params[0].name + '：' + params[0].value
+        // },
+        // trigger: 'axis',
+        // axisPointer: {
+        //   type: 'cross',
+        //   label: {
+        //     backgroundColor: '#6a7985'
+        //   }
+        // }
+        show: false
+      },
       grid: {
-        left: '7%',
+        left: '2%',
         right: '2%',
         bottom: '5%',
         top: '30%',
@@ -66,13 +80,14 @@ export default class ChartCopLine extends Component {
         data: xAxisData
       },
       yAxis: {
-        type: 'value',
-        axisTick: {
-          inside: true
-        },
-        splitLine: {
-          show: false
-        }
+        // type: 'value',
+        // axisTick: {
+        //   inside: true
+        // },
+        // splitLine: {
+        //   show: false
+        // },
+        show: false
       },
       animation: false,
       series: [{

@@ -5,8 +5,9 @@ import thunk from 'redux-thunk'
 import { serialport, openSerialport, closeSerialport } from './serialport'
 import { globalSource, setCurrentRecordID } from './globalSource'
 import { history, deleteHistoryRecord, clearHistoryRecord } from './history'
+import { user, setUserInfo } from './user'
 
-const reducers = { serialport, globalSource, history }
+const reducers = { user, serialport, globalSource, history }
 
 const persistConfig = {
   key: 'root',
@@ -30,10 +31,11 @@ const persistor = persistStore(store, null, () => store.getState())
 export { store, persistor }
 
 // 抛出 actions
-export { 
-  openSerialport, 
+export {
+  openSerialport,
   closeSerialport,
   deleteHistoryRecord,
   clearHistoryRecord,
   setCurrentRecordID,
+  setUserInfo
 }
