@@ -3,11 +3,11 @@
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  margin-top: -1.5vw;
+  margin-top: 3.229vw;
+  flex-direction: column;
 }
 
 .basic_report_color {
-  /* width: 5.741vh; */
   height: 45vh;
   margin-left: 5.208vw;
 }
@@ -54,18 +54,28 @@
 
 .basic_content_div_title {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 3.981vh 0 0 0;
 }
 
-.basic_content_div_title>i {
-  width: 2.222vh;
-  height: 2.222vh;
+.content_div_title_top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content_div_title_top>i {
+  width: 1.042vw;
+  height: 1.042vws;
+  margin-left: 0.469vw;
   background: url(../icons/Notes.png) no-repeat;
   background-size: 100% 100%;
   cursor: pointer;
-  margin-right: 1.852vh;
+}
+
+.content_div_title_top>span {
+  color: #4d4d4d;
+  font-size: 1.25vw;
 }
 
 .gait_chart_content {
@@ -77,7 +87,7 @@
   width: 100%;
 }
 
-.gait_chart_content_item {
+.lower_force_item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,29 +96,29 @@
   width: 100%;
 }
 
-.gait_chart_content_item .pie-react {
+.lower_force_item .pie-react {
   flex: 1;
   display: flex;
   height: 100%;
   width: 100%;
 }
 
-.gait_chart_content_item .pie-react>div {
+.lower_force_item .pie-react>div {
   width: 100%;
   height: 100%;
 }
 
-.gait_chart_content_item .pie-react>div>div:first-child {
+.lower_force_item .pie-react>div>div:first-child {
   width: 100% !important;
   height: 100% !important;
 }
 
-.gait_chart_content_item .pie-react>div>div>canvas {
+.lower_force_item .pie-react>div>div>canvas {
   width: 100% !important;
   height: 100% !important;
 }
 
-.gait_chart_content>.gait_chart_content_item>span {
+.gait_chart_content>.lower_force_item>span {
   font-size: 1.667vh;
   font-weight: normal;
   font-stretch: normal;
@@ -118,14 +128,15 @@
   margin-bottom: 4.204vh;
 }
 
-.basic_content_div_title>span {
+.basic_content_div_title>span:nth-child(2) {
   font-family: MicrosoftYaHei;
-  font-size: 2.222vh;
-  font-weight: normal;
-  font-stretch: normal;
-  letter-spacing: 0vh;
-  color: #4c4c4c;
-  margin-left: 3.611vh;
+  font-size: 0.729vw;
+  color: #8a8a8a;
+}
+
+.basic_content_div_title>span:nth-child(3) {
+  font-size: 0.625vw;
+  color: #8a8a8a;
 }
 
 .basic_content_right .single_time_chart {
@@ -202,28 +213,28 @@
   margin-left: 2.407vh;
 }
 
-.crura_weight_chart_content {
+.content_lower_force {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-.crura_weight_chart_content>.gait_chart_content_item {
+.content_lower_force>.lower_force_item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.crura_weight_chart_content>.gait_chart_content_item:first-child {
+.content_lower_force>.lower_force_item:first-child {
   border-right: 1px solid #e5e5e5;
   flex-direction: column;
 }
 
-.crura_weight_chart_content>.gait_chart_content_item:last-child>ul {
+.content_lower_force>.lower_force_item:last-child>ul {
   margin-left: 3.611vh;
   width: 100%;
   margin-right: 2.278vh;
 }
 
-.crura_weight_chart_content>.gait_chart_content_item:last-child>ul>li {
+.content_lower_force>.lower_force_item:last-child>ul>li {
   margin-top: 3vh;
 }
 
@@ -344,12 +355,12 @@
   border-radius: 100%;
 }
 
-.gait_chart_content_item .ant-progress-status-success .ant-progress-bg {
+.lower_force_item .ant-progress-status-success .ant-progress-bg {
   background-color: #1890ff;
 }
 
-.gait_chart_content_item  .ant-progress-status-success .ant-progress-text {
-  color: rgba(0,0,0,.45);
+.lower_force_item .ant-progress-status-success .ant-progress-text {
+  color: rgba(0, 0, 0, .45);
 }
 
 .reply_bottom {
@@ -358,31 +369,508 @@
   align-items: center;
 }
 
-.reply_bottom >div {
+.reply_bottom>div {
   flex: 1;
   margin: 0 0.99vw;
 }
 
-.reply_bottom >span {
+.reply_bottom>span {
   font-size: 0.938vw;
   color: #4c4c4c;
 }
 
-.reply_bottom >img {
+.reply_bottom>img {
   margin-left: 0.938vw;
   cursor: pointer;
 }
 
-.reply_bottom >div .ant-slider-rail {
+.reply_bottom>div .ant-slider-rail {
   height: 0.741vh;
 }
 
-.reply_bottom >div .ant-slider-track {
+.reply_bottom>div .ant-slider-track {
   height: 0.741vh;
   background-color: #0999fd;
 }
 
-.reply_bottom >div .ant-slider-handle {
+.reply_bottom>div .ant-slider-handle {
   background-color: #0999fd;
   border: 2px solid #0999fd;
+}
+
+.content_div_content {
+  background: url(../icons/ellipse.png) no-repeat;
+  width: 6vw;
+  height: 9vh;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.667vh;
+  margin-bottom: 1.389vh;
+}
+
+.content_div_title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 3.981vh 0 0 0;
+}
+
+.content_div_title_top>i {
+  width: 1.042vw;
+  height: 1.042vw;
+  background: url(../icons/Notes.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.press_analysis_page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.report_content_top {
+  display: flex;
+  align-items: center;
+}
+
+.report_content_bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.report_content_bottom .ellipse_chart:last-child {
+  margin-right: 3.8vw;
+}
+
+/* .report_content_bottom .ellipse_chart:nth-child(1) {
+  margin-left: 7.344vw; 
+} */
+
+.gait_cycle_item {
+  width: 50vw;
+  margin-left: 1.406vw;
+}
+
+.gait_cycle_item_top {
+  display: flex;
+  /* justify-content: space-around; */
+  margin-bottom: 0.26vw;
+}
+
+.gait_cycle_item_middle {
+  display: flex;
+}
+
+.gait_cycle_item_bottom {
+  display: flex;
+}
+
+.gait_cycle {
+  display: flex;
+}
+
+.gait_cycle_item_value {
+  display: flex;
+  height: 2.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.gait_cycle_item_value>span {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  color: #4d4d4d;
+}
+
+.basic_report_gait_cycle:last-child .gait_cycle_item_value>span {
+  color: #ffffff;
+}
+
+.gait_cycle_item_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.759vh;
+}
+
+.gait_cycle_item_text>span:nth-child(1) {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  color: #8a8a8a;
+}
+
+.gait_cycle_item_text>span:nth-child(2) {
+  font-family: MicrosoftYaHei;
+  font-size: 0.833vw;
+  color: #4a4a4a;
+}
+
+.ant-popover-title {
+  background-color: #3aadfd;
+  text-align: center;
+}
+
+.popover_content_p {
+  width: auto;
+  max-width: 15vw;
+}
+
+.popover_content_p>p {
+  font-family: MicrosoftYaHei;
+  font-size: 1vw;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0vw;
+  color: #8a8a8a;
+}
+
+.ant-popover-inner {
+  border-radius: 1vw;
+}
+
+.ant-popover-title {
+  border-radius: 1vw 1vw 0vw 0vw;
+}
+
+.ant-popover-arrow {
+  display: none;
+}
+
+.ellipse_chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lower_force_div_title {
+  display: flex;
+  flex-direction: column;
+}
+
+.lower_force_div_title>span:nth-child(2) {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  color: #8a8a8a;
+}
+
+.lower_force_div_title>span:nth-child(3) {
+  font-size: 0.625vw;
+  color: #8a8a8a;
+}
+
+.lower_force_div_title_top {
+  display: flex;
+  align-items: center;
+}
+
+.lower_force_div_title_top>i {
+  width: 1.042vw;
+  height: 1.042vw;
+  margin-left: 0.469vw;
+  background: url(../icons/Notes.png) no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.lower_force_div_title_top>span {
+  color: #4d4d4d;
+  font-size: 1.25vw;
+}
+
+.empty_div {
+  width: 2px;
+  height: 14.722vh;
+  background-color: #ebebeb;
+  margin-right: 1.615vw;
+  margin-left: 3.333vw;
+}
+
+.content_div_title>span:nth-child(2) {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  color: #8a8a8a;
+}
+
+.ellipse_chart>span {
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+  color: #8a8a8a;
+}
+
+.phase_title>span>label:nth-child(1) {
+  color: #4a4a4a;
+  font-family: MicrosoftYaHei;
+  font-size: 0.833vw;
+}
+
+.phase_title>span>label:nth-child(2) {
+  font-family: MicrosoftYaHei;
+  color: #4d4d4d;
+  font-size: 0.938vw;
+}
+
+.phase_title>span>label:nth-child(3) {
+  color: #8a8a8a;
+  font-family: MicrosoftYaHei;
+  font-size: 0.729vw;
+}
+
+.phase_title {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #808080;
+  position: relative;
+}
+
+.phase_title::before {
+  content: '';
+  width: 1px;
+  height: 10px;
+  background: #808080;
+  position: absolute;
+  left: 0;
+  top: 16px;
+}
+
+.phase_title::after {
+  content: '';
+  width: 1px;
+  height: 10px;
+  background: #808080;
+  position: absolute;
+  right: 0;
+  top: 16px;
+}
+
+.content_gait_cycle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content_gait_cycle .gait_cycle:last-child {
+  margin-top: 5vh;
+}
+
+/* ***********打印基础报告PDF样式*********** */
+
+/* 打开注释进行打印界面调试，注释后才可以分页打印 */
+
+/* .export_pdf {
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+} */
+
+.front_cover_div {
+  position: relative;
+  display: flex;
+  height: 1162px;
+  width: 800px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.front_cover_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.front_cover_content>span:nth-child(1) {
+  height: 92px;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 71px;
+  font-weight: normal;
+  font-stretch: normal;
+  color: #405053;
+}
+
+.front_cover_content>span:nth-child(2) {
+  height: 36px;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 27px;
+  color: #405053;
+  margin-top: 94px;
+}
+
+.front_cover_content>span:nth-child(3) {
+  height: 35px;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 24px;
+  font-weight: normal;
+  color: #405053;
+  margin-top: 43px;
+}
+
+.export_comparison_pdf_body {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.export_basic_pdf_body {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.press_pdf_table {
+  width: 700px;
+  border: solid 1px #88a1a3;
+}
+
+.press_pdf_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 700px;
+}
+
+.press_pdf_item_top {
+  display: flex;
+}
+
+.press_pdf_item_top>span {
+  flex: 1;
+}
+
+.press_pdf_content .press_pdf_item {
+  margin-top: 60px;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 17px;
+  color: #405053;
+}
+
+.front_cover_div>img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+/* ***********打印基础报告PDF样式*********** */
+
+.gait_chart_pdf .data_gait_chart {
+  display: flex;
+  justify-content: center;
+}
+
+.gait_chart_pdf .data_gait_chart .common-bar-react {
+  width: 800px;
+  height: 394px;
+}
+
+.single_chart_pdf .data_single_chart {
+  display: flex;
+  justify-content: center;
+}
+
+.single_chart_pdf .data_single_chart .common-bar-react {
+  width: 800px;
+  height: 394px;
+}
+
+.double_chart_pdf .data_double_chart {
+  display: flex;
+  flex-direction: column;
+}
+
+.double_chart_pdf .data_double_chart .common-bar-react {
+  width: 800px;
+  height: 394px;
+}
+
+.single_stability_chart_pdf .data_single_stability_chart {
+  display: flex;
+  flex-direction: column;
+}
+
+.single_stability_chart_pdf .data_single_stability_chart .common-line-react {
+  width: 800px;
+  height: 394px;
+}
+
+.double_asi_chart_pdf .data_double_asi_chart {
+  display: flex;
+  justify-content: center;
+}
+
+.double_asi_chart_pdf .data_double_asi_chart .common-line-react {
+  width: 800px;
+  height: 394px;
+}
+
+.crura_chart_pdf .data_crura_chart {
+  display: flex;
+  justify-content: center;
+}
+
+.crura_chart_pdf .data_crura_chart .common-bar-react {
+  width: 800px;
+  height: 394px;
+}
+
+.comparison_pdf_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 800px;
+  margin-top: 100px;
+}
+
+.comparison_pdf_item {
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 17px;
+  color: #405053;
+  margin: 0 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison_pdf_item>span {
+  margin-top: 20px;
+}
+
+.chart_pdf_title {
+  width: 800px;
+  text-align: center;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #405053;
+}
+
+.child_page {
+  height: 1162px;
+}
+
+.preview_print_canvas {
+  position: absolute;
+  top: -100000px;
+}
+
+.front_cover_div>span {
+  position: absolute;
+  right: 200px;
+  bottom: 185px;
+  font-family: AdobeHeitiStd-Regular;
+  font-size: 16px;
+  color: #47abff;
 }

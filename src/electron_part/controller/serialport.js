@@ -1,4 +1,4 @@
-const { insertRecord, removeRecords, insertSerialprotData, insertWifiData, insertEmgData } = require('../database')
+const { insertRecord, removeRecords, insertSerialprotData, insertWifiData, insertEmgData, saveGait } = require('../database')
 import { openSerialport as openPort, closeSerialport as closePort } from '../serialport'
 import { socketResume, socketPause } from '../socket'
 import { variables } from '../global_variables'
@@ -60,6 +60,7 @@ export const saveData = ({ sensorData_AD, sensorData, posturedata }) => {
   let pressObj = {}
   let pressArray = []
   pressObj['$record_id'] = variables.recordInfo.record_time
+  pressObj['$name'] = variables.userInfo.name
   pressObj['$lr'] = sensorData[0]
   pressObj['$num_order'] = sensorData[1]
   pressObj['$current_time'] = sensorData_AD[44]
@@ -90,6 +91,7 @@ export const saveWifiData = ({ clientName, wifiData }) => {
   if(wifiData_temp[clientName].length >= 1000){
     let wifiObj = {}
     wifiObj['recordID'] = variables.recordInfo.record_time
+    wifiObj['name'] = variables.userInfo.name
     wifiObj['clientName'] = clientName
     wifiObj['recordTime'] = Date.now()//moment().format('YYYY-MM-DD HH:mm:ss')
     wifiObj['wifiData'] = wifiData_temp[clientName]
@@ -105,7 +107,7 @@ export const saveWifiData = ({ clientName, wifiData }) => {
 }
 
 // 打开串口、接收串口数据,回复socket数据接收
-export const openSerialport = ({ shoe_size }, cb) => {
+export const openSerialport = ({ shoe_size, name, sex, age }, cb) => {
   if (!shoe_size) return cb(null, '缺少用户信息', -1)
 
   // 插入训练记录
@@ -139,7 +141,7 @@ export const openSerialport = ({ shoe_size }, cb) => {
           if (err) console.log('socketResume err', err)
         })
         // 设置全局变量
-        variables.userInfo = { shoe_size }
+        variables.userInfo = { shoe_size, name, sex, age }
         variables.recordInfo = row
         // 初始化计算模块
         initializeCompute()
@@ -171,9 +173,10 @@ export const closeSerialport = (_, cb) => {
     socketPause(err => {
       if (err) console.log('socketPause err', err)
     })
+    computeAndSavaGait()
     cb()
 
-
+    
     // 结束时，保存缓存里的数据
     sendDataToSave()
     sendWiFiDataToSave()
@@ -181,6 +184,7 @@ export const closeSerialport = (_, cb) => {
     // 结束时处理压力值与肌电数据
     let emgObj = {}
     emgObj['recordID'] = variables.recordInfo.record_time
+    emgObj['name'] = variables.userInfo.name
     let pressPosition = [] // 左腿着地的点
     for(let i = 0; i < pressTemp.length; i++){
       if(pressTemp[i] > Threshold){
@@ -215,4 +219,32 @@ export const closeSerialport = (_, cb) => {
       sendEmgDataToSave(emgObj)
     }
   })
+}
+
+// 计算指标平均值
+const computeAndSavaGait = () => {
+  // console.log('=======computeAndSavaGait========')
+  if (variables.gaitInfo.gaitNum_L) {
+    // console.log('=======computeAndSavaGait===gaitNum_L=====')
+    variables.gaitInfo.gaitCycle_L = (variables.gaitInfo.gaitCycle_L / variables.gaitInfo.gaitNum_L).toFixed(0) * 1
+    variables.gaitInfo.singleStance_L = (variables.gaitInfo.singleStance_L / variables.gaitInfo.gaitNum_L).toFixed(0) * 1
+    variables.gaitInfo.doubleStance_land_L = (variables.gaitInfo.doubleStance_land_L / variables.gaitInfo.gaitNum_L).toFixed(0) * 1
+    variables.gaitInfo.doubleStance_leave_L = (variables.gaitInfo.doubleStance_leave_L / variables.gaitInfo.gaitNum_L).toFixed(0) * 1
+    variables.gaitInfo.swing_L = (variables.gaitInfo.swing_L / variables.gaitInfo.gaitNum_L).toFixed(0) * 1
+  }
+
+  if (variables.gaitInfo.gaitNum_R) {
+    variables.gaitInfo.gaitCycle_R = (variables.gaitInfo.gaitCycle_R / variables.gaitInfo.gaitNum_R).toFixed(0) * 1
+    variables.gaitInfo.singleStance_R = (variables.gaitInfo.singleStance_R / variables.gaitInfo.gaitNum_R).toFixed(0) * 1
+    variables.gaitInfo.doubleStance_land_R = (variables.gaitInfo.doubleStance_land_R / variables.gaitInfo.gaitNum_R).toFixed(0) * 1
+    variables.gaitInfo.doubleStance_leave_R = (variables.gaitInfo.doubleStance_leave_R / variables.gaitInfo.gaitNum_R).toFixed(0) * 1
+    variables.gaitInfo.swing_R = (variables.gaitInfo.swing_R / variables.gaitInfo.gaitNum_R).toFixed(0) * 1
+  }
+
+  if (variables.gaitInfo.gaitCycle_L) variables.gaitInfo.singleStability_L = ((variables.gaitInfo.gaitCycle_L - variables.gaitInfo.swing_L) / variables.gaitInfo.gaitCycle_L).toFixed(4) * 1
+  if (variables.gaitInfo.gaitCycle_R) variables.gaitInfo.singleStability_R = ((variables.gaitInfo.gaitCycle_R - variables.gaitInfo.swing_R) / variables.gaitInfo.gaitCycle_R).toFixed(4) * 1
+
+  variables.gaitInfo.singleASI = (Math.abs(variables.gaitInfo.singleStance_L - variables.gaitInfo.singleStance_R) / (variables.gaitInfo.singleStance_L + variables.gaitInfo.singleStance_R)) * 2
+
+  saveGait({ recordId: variables.recordInfo._id, gaitInfo: variables.gaitInfo, copInfo: variables.copInfo })
 }

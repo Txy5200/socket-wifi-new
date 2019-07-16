@@ -23,8 +23,8 @@ export const serialport = (state = initState, action = {}) => {
   }
 }
 
-export const openSerialport = () => dispatch => {
-  let result = sendSyncMessage('openSerialport', { shoe_size: 42 })
+export const openSerialport = ({name = '', sex = '', age = ''}) => dispatch => {
+  let result = sendSyncMessage('openSerialport', { shoe_size: 42, name, sex, age })
   if (result && result.code === 200)
     dispatch({
       type: SERIALPORT_OPEN

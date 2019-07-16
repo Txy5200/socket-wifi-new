@@ -3,11 +3,12 @@ import xlsx from 'node-xlsx';
 import { connect } from 'react-redux';
 import { ChartDynamicPressureScatter, CharLine } from '../components';
 import { Modal, message, Button, Input } from 'antd'
-import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecord, setUserInfo } from '../ducks';
+import { openSerialport, closeSerialport, setCurrentRecordID, deleteHistoryRecord, setUserInfo, setGaitInfo } from '../ducks';
 import fs from 'fs'
 import path from 'path'
 import readline from 'readline'
 import { formatEmgData } from '../helper/util'
+import PressAnalysis from './pressAnalysis'
 
 const globalVariable = require('electron').remote.getGlobal('variables');
 const { dialog, app } = require('electron').remote
@@ -24,7 +25,8 @@ class Inspection extends Component {
       endState: false,
       playState: false,
       pressureArrayData: [],
-      userData: {}
+      userData: {},
+      page: 1, // 1-首页，2-压力分析
     };
   }
 
@@ -52,7 +54,9 @@ class Inspection extends Component {
   // 开始检测
   startInspect() {
     const { openSerialport } = this.props;
-    let result = openSerialport()
+    const {userData} = this.state
+    const {name = '', age = '', sex = ''} = userData
+    let result = openSerialport({name, age, sex})
     if (result.code !== 200) {
       message.error('串口打开错误')
       return
@@ -64,7 +68,7 @@ class Inspection extends Component {
 
   // 结束检测
   endInspect() {
-    const { recordInfo } = globalVariable
+    const { recordInfo, gaitInfo } = globalVariable
     // const { timeOut } = this.state;
     const { closeSerialport, deleteHistoryRecord } = this.props;
     let result = closeSerialport()
@@ -78,6 +82,7 @@ class Inspection extends Component {
       }
       // 存贮当前记录id
       this.props.setCurrentRecordID({ currentRecordId: recordInfo._id });
+      this.props.setGaitInfo({ currentGaitInfo: gaitInfo })
       this.setState({ startState: false, endState: true });
       Modal.confirm({
         content: '是否保存',
@@ -105,7 +110,7 @@ class Inspection extends Component {
         if (isDevMode) userDataPath = path.join(__dirname, '../../electron_part/database/db')
 
         if (type) {
-          const data = [["记录ID", "CurrentTime", "L/R", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
+          const data = [["姓名", "记录ID", "CurrentTime", "L/R", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
             "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
             "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
             "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值", "压力值",
@@ -117,8 +122,8 @@ class Inspection extends Component {
           readliner.on('line', function (chunk) {
             //处理每一行数据
             chunk = JSON.parse(chunk)
-            let { recordID, currentTime, forces, LorR } = chunk
-            let tempData = [recordID, currentTime, LorR]
+            let { name, recordID, currentTime, forces, LorR } = chunk
+            let tempData = [name, recordID, currentTime, LorR]
             tempData = [...tempData, ...forces]
             data.push(tempData)
           });
@@ -136,7 +141,7 @@ class Inspection extends Component {
             })
           });
         } else {
-          const data = [['记录ID', 'RecordTime', 'ClientName', 'EMGData']]
+          const data = [["姓名", '记录ID', 'RecordTime', 'ClientName', 'EMGData']]
           const readliner = readline.createInterface({
             input: fs.createReadStream(`${userDataPath}/wifiPpm.db`),
           });
@@ -144,8 +149,8 @@ class Inspection extends Component {
           readliner.on('line', function (chunk) {
             //处理每一行数据
             chunk = JSON.parse(chunk)
-            let { recordID, clientName, recordTime, wifiData } = chunk
-            let tempData = [recordID, recordTime, clientName, wifiData]
+            let { name, recordID, clientName, recordTime, wifiData } = chunk
+            let tempData = [name, recordID, recordTime, clientName, wifiData]
             data.push(tempData)
           });
 
@@ -224,8 +229,30 @@ class Inspection extends Component {
   }
 
   render() {
-    let { deviceArrayJson, pressureArrayData, startState, initxAxisData } = this.state;
+    let { page } = this.state;
+    if (page === 1) {
+      return (
+        this.renderPage1()
+      )
+    } else if (page === 2) {
+      return (
+        this.renderPage2()
+      )
+    }
+  }
 
+  renderPage2() {
+    return (
+      <PressAnalysis
+        back={() => {
+          this.setState({page: 1})
+        }}
+      />
+    )
+  }
+
+  renderPage1() {
+    let { deviceArrayJson, pressureArrayData, startState, initxAxisData } = this.state;
     // 原来只显示四个图表
     // let array = []
     // for (let key in deviceArrayJson) {
@@ -234,7 +261,7 @@ class Inspection extends Component {
     //     array: deviceArrayJson[key]
     //   })
     // }
-
+    
     // 现在显示8+8个图表
     let array = formatEmgData(deviceArrayJson)
     let arrayL = array.slice(0, 8)
@@ -281,6 +308,11 @@ class Inspection extends Component {
                 <div>
                   <Button
                     onClick={() => {
+                      this.setState({page: 2}, () => {
+                        const { gaitInfo } = globalVariable
+                        console.log('gaitInfo============', gaitInfo)
+                        this.props.setGaitInfo({ currentGaitInfo: gaitInfo })
+                      })
                     }}
                   >压力分析</Button>
                 </div>
@@ -338,6 +370,7 @@ export default connect(
     closeSerialport,
     setCurrentRecordID,
     deleteHistoryRecord,
-    setUserInfo
+    setUserInfo,
+    setGaitInfo
   }
 )(Inspection);

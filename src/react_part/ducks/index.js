@@ -3,7 +3,7 @@ import { persistStore, persistReducer, persistCombineReducers } from 'redux-pers
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 import { serialport, openSerialport, closeSerialport } from './serialport'
-import { globalSource, setCurrentRecordID } from './globalSource'
+import { globalSource, setCurrentRecordID, setGaitInfo } from './globalSource'
 import { history, deleteHistoryRecord, clearHistoryRecord } from './history'
 import { user, setUserInfo } from './user'
 
@@ -37,5 +37,6 @@ export {
   deleteHistoryRecord,
   clearHistoryRecord,
   setCurrentRecordID,
+  setGaitInfo,
   setUserInfo
 }
